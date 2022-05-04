@@ -25,7 +25,7 @@ public:
     int getNumVertices();
     int getNumEdges();
     int getEdgeWeight(int, int);
-    bool addVertex(int, Data*);
+    bool addVertex(int, string*);
     bool addEdge(int, int, int);
     bool removeVertex(int);
     bool removeEdge(int, int);
@@ -38,7 +38,7 @@ private:
     int vertexCount;
     int edgeCount;
     vector<DataVertex*> graphList;
-    int binarySearch(int);
+    int binarySearch(int, int, int);
 
 };
 
