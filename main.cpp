@@ -9,31 +9,8 @@ Purpose: Creating a graph ADT
 int main(int argc, char** argv){
     srand(time(NULL));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Graph newGraph;
+    newGraph.breadthFirstTraversal(9);
 
 
     return 0;
