@@ -13,7 +13,6 @@ using std::string;
 struct Data {
     int id;
     string information;
-    int edgeWeight;
 };
 
 struct DataVertex {
