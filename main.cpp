@@ -32,13 +32,29 @@ int main(int argc, char** argv){
 
     newGraph.depthFirstTraversal(9);
 
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
+
     cout << endl;
 
-    newGraph.addEdge(2, 6, 10);
+    newGraph.addEdge(1, 4, 10);
     newGraph.addEdge(1, 25, 88);
-    newGraph.addEdge(2, 6, 10);
+
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
+
+    newGraph.addEdge(1, 4, 10);
+    for(int i = 1; i<=25; i++){
+        cout << "creating edge between " << 1 << " and " << i+1 << "... ";
+        if(newGraph.addEdge(1, i+1, i*2)){
+            cout << "success" << endl;
+        }else{
+            cout << "failed" << endl;
+        }
+    }
+
 
     newGraph.depthFirstTraversal(9);
+
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
     return 0;
 }
