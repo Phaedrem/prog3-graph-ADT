@@ -43,6 +43,7 @@ private:
     int binarySearch(int, int, int);
     void createVertex(Vertex**, int, string*);
     bool createEdge(int, int, int);
+    void depthFirstAssist(int, vector<bool>&);
 
 };
 
