@@ -72,6 +72,20 @@ bool Graph::createEdge(int vertex, int weight, int index){
     return created;
 }
 
+void Graph::depthFirstAssist(int startingIndex, vector<bool> &visited){
+    visited[startingIndex] = true;
+    cout << graphList[startingIndex]->data.id << " ";
+    int edgeID;
+    int edgeIndex;
+    for(int i=0; i < graphList[startingIndex]->edges.size(); i++){
+        edgeID = graphList[startingIndex]->edges[i].first;
+        edgeIndex = binarySearch(0,vertexCount-1,edgeID);
+        if(visited[edgeIndex] == false){
+            depthFirstAssist(edgeIndex, visited);
+        }
+    }
+}
+
 /*********************************
 PUBLIC
 *********************************/
@@ -142,7 +156,21 @@ bool Graph::removeEdge(int startVertex, int endVertex){
     return true;
 }
 
-void Graph::depthFirstTraversal(int startVertex){ 
+void Graph::depthFirstTraversal(int startVertex){
+    int startIndex = binarySearch(0, vertexCount-1, startVertex);
+    if(graphList[startIndex]){
+        vector<bool> visited(vertexCount, false);
+        for(int i=0; i<vertexCount; i++){
+            if(visited[startIndex] == false){
+                depthFirstAssist(startIndex, visited);
+            }
+            startIndex = (startIndex+1) % vertexCount;
+        }
+    }
+    
+}
+
+void Graph::breadthFirstTraversal(int startVertex){
     for(int i=0; i<vertexCount; i++){
         cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
         if(graphList[i]->edges.front().first > 0){
@@ -152,13 +180,6 @@ void Graph::depthFirstTraversal(int startVertex){
                 j++;
             }
         }
-        cout << endl;
-    }
-}
-
-void Graph::breadthFirstTraversal(int startVertex){
-    for(int i=0; i<vertexCount; i++){
-        cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
         cout << endl;
     }
 }
