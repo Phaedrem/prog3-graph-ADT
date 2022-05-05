@@ -52,6 +52,26 @@ void Graph::createVertex(Vertex** vertexBox, int id, string* info){
     *vertexBox = newVertex;
 }
 
+bool Graph::createEdge(int vertex, int weight, int index){
+    bool created = false;
+    int current = graphList[index]->edges.front().first;
+    int i = 0;
+    while(current != graphList[index]->edges.back().first && current != vertex){
+        current = graphList[index]->edges[i].first;
+        i++;
+    }
+    if(current != vertex){
+        if(graphList[index]->edges.front().first == -1){
+            graphList[index]->edges[0].first = vertex;
+            graphList[index]->edges[0].second = weight;
+        }else{
+            graphList[index]->edges.push_back(make_pair(vertex, weight));
+        }
+        created = true;
+    }
+    return created;
+}
+
 /*********************************
 PUBLIC
 *********************************/
@@ -104,37 +124,12 @@ bool Graph::addEdge(int startVertex, int endVertex, int weight){
     bool connected = false;
     int firstIndex = binarySearch(0, vertexCount-1, startVertex);
     int secondIndex = binarySearch(0,vertexCount-1, endVertex);
-    if(startVertex == graphList[firstIndex]->data.id && endVertex == graphList[secondIndex]->data.id){
-        pair <int, int> current;
-        current.first = graphList[firstIndex]->edges.front().first;
-        int i = 0;
-        while(current.first != graphList[firstIndex]->edges.back().first && current.first != endVertex){
-            current.first = graphList[firstIndex]->edges[i].first;
-            i++;
-        }
-        if(current.first != endVertex){
-            if(graphList[firstIndex]->edges.front().first == -1){
-                graphList[firstIndex]->edges[0].first = endVertex;
-                graphList[firstIndex]->edges[0].second = weight;
-            }else{
-                graphList[firstIndex]->edges.push_back(make_pair(endVertex, weight));
-            }
-
-        }
-        current.first = graphList[secondIndex]->edges.front().first;
-        i = 0;
-        while(current.first != graphList[secondIndex]->edges.back().first && current.first != endVertex){
-            current.first = graphList[secondIndex]->edges[i].first;
-            i++;
-        }
-        if(current.first != startVertex){
-            if(graphList[secondIndex]->edges.front().first == -1){
-                graphList[secondIndex]->edges[0].first = startVertex;
-                graphList[secondIndex]->edges[0].second = weight;
-            }else{
-                graphList[secondIndex]->edges.push_back(make_pair(startVertex, weight));
-            }
-        }
+    if(startVertex != endVertex && startVertex == graphList[firstIndex]->data.id && endVertex == graphList[secondIndex]->data.id){
+        if(createEdge(endVertex, weight, firstIndex)){
+            createEdge(startVertex, weight, secondIndex);
+            edgeCount++;
+            connected = true;
+        }    
     }
     return connected;
 }
