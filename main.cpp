@@ -13,13 +13,13 @@ int main(int argc, char** argv){
     Graph newGraph;
 
     cout << endl;
-    newGraph.breadthFirstTraversal(9);
     cout << endl << endl; 
     for(int i = 0; i<=10; i++){
         if(newGraph.addVertex(i*2, &stringName)){
             cout << "added " << i*2 << ": " << stringName << endl;
         }
     }
+    newGraph.depthFirstTraversal(9);
     cout << endl;
 
     stringName = "HARE";
@@ -29,6 +29,14 @@ int main(int argc, char** argv){
         }
     }
     cout << endl;
+
+    newGraph.depthFirstTraversal(9);
+
+    cout << endl;
+
+    newGraph.addEdge(2, 6, 10);
+    newGraph.addEdge(1, 25, 88);
+    newGraph.addEdge(2, 6, 10);
 
     newGraph.depthFirstTraversal(9);
 
