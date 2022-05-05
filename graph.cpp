@@ -150,7 +150,7 @@ bool Graph::removeEdge(int startVertex, int endVertex){
 void Graph::depthFirstTraversal(int startVertex){ 
     for(int i=0; i<vertexCount; i++){
         cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
-        if(graphList[i]->edges.front().first > 1){
+        if(graphList[i]->edges.front().first > 0){
             int j = 0;
             while(j != graphList[i]->edges.size()){
                 cout << " -> " << graphList[i]->edges[j].first << ": " << graphList[i]->edges[j].second;
