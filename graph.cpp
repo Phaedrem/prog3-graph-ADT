@@ -18,14 +18,7 @@ Graph::Graph(){
 }
 
 Graph::~Graph(){
-    DataVertex* current;
     for (int i = 0; i < vertexCount; i++){
-        current = graphList[i]->next;
-        while(current){
-            graphList[i]->next = current->next;
-            delete current;
-            current = graphList[i]->next;
-        }
         delete graphList[i];
     }
 }
@@ -51,11 +44,11 @@ int Graph::binarySearch(int beginning, int end, int id){
     return mid;
 }
 
-void Graph::createVertex(DataVertex** vertexBox, int id, string* info){
-    DataVertex* newVertex = new DataVertex;
+void Graph::createVertex(Vertex** vertexBox, int id, string* info){
+    Vertex* newVertex = new Vertex;
     newVertex->data.id = id;
     newVertex->data.information = *info;
-    newVertex->next = nullptr;
+    newVertex->edges.push_back(make_pair(-1, -1));
     *vertexBox = newVertex;
 }
 
@@ -79,25 +72,25 @@ int Graph::getEdgeWeight(int startVertex, int endVertex){
 bool Graph::addVertex(int id, string* info){
     bool added = false;
     if(id > 0 && *info != ""){
-        DataVertex* testVertex3;
+        Vertex* testVertex;
         if(!graphList[0]){
-            createVertex(&testVertex3, id, info);
-            graphList[0] = testVertex3;
+            createVertex(&testVertex, id, info);
+            graphList[0] = testVertex;
             vertexCount++;
             added = true;
         }else if(graphList[0] && id > graphList[vertexCount-1]->data.id){
-            createVertex(&testVertex3, id, info);
-            graphList.push_back(testVertex3);
+            createVertex(&testVertex, id, info);
+            graphList.push_back(testVertex);
             vertexCount++;
             added = true;
         }else{
             int placeHolder = binarySearch(0, vertexCount-1, id);
             if(id != graphList[placeHolder]->data.id){
-                createVertex(&testVertex3, id, info);
+                createVertex(&testVertex, id, info);
                 if(id < graphList[placeHolder]->data.id){
-                    graphList.insert(graphList.begin()+placeHolder, testVertex3);
+                    graphList.insert(graphList.begin()+placeHolder, testVertex);
                 }else{
-                    graphList.insert(graphList.begin()+placeHolder+1, testVertex3);
+                    graphList.insert(graphList.begin()+placeHolder+1, testVertex);
                 }
                 vertexCount++;
                 added = true;
@@ -108,7 +101,42 @@ bool Graph::addVertex(int id, string* info){
 }
 
 bool Graph::addEdge(int startVertex, int endVertex, int weight){
-    return true;
+    bool connected = false;
+    int firstIndex = binarySearch(0, vertexCount-1, startVertex);
+    int secondIndex = binarySearch(0,vertexCount-1, endVertex);
+    if(startVertex == graphList[firstIndex]->data.id && endVertex == graphList[secondIndex]->data.id){
+        pair <int, int> current;
+        current.first = graphList[firstIndex]->edges.front().first;
+        int i = 0;
+        while(current.first != graphList[firstIndex]->edges.back().first && current.first != endVertex){
+            current.first = graphList[firstIndex]->edges[i].first;
+            i++;
+        }
+        if(current.first != endVertex){
+            if(graphList[firstIndex]->edges.front().first == -1){
+                graphList[firstIndex]->edges[0].first = endVertex;
+                graphList[firstIndex]->edges[0].second = weight;
+            }else{
+                graphList[firstIndex]->edges.push_back(make_pair(endVertex, weight));
+            }
+
+        }
+        current.first = graphList[secondIndex]->edges.front().first;
+        i = 0;
+        while(current.first != graphList[secondIndex]->edges.back().first && current.first != endVertex){
+            current.first = graphList[secondIndex]->edges[i].first;
+            i++;
+        }
+        if(current.first != startVertex){
+            if(graphList[secondIndex]->edges.front().first == -1){
+                graphList[secondIndex]->edges[0].first = startVertex;
+                graphList[secondIndex]->edges[0].second = weight;
+            }else{
+                graphList[secondIndex]->edges.push_back(make_pair(startVertex, weight));
+            }
+        }
+    }
+    return connected;
 }
 
 bool Graph::removeVertex(int id){
@@ -119,28 +147,23 @@ bool Graph::removeEdge(int startVertex, int endVertex){
     return true;
 }
 
-void Graph::depthFirstTraversal(int startVertex){
-    DataVertex* current; 
+void Graph::depthFirstTraversal(int startVertex){ 
     for(int i=0; i<vertexCount; i++){
         cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
-        current = graphList[i]->next;
-        while(current){
-            cout << " -> " << current->data.id << ": " << current->data.information;
-            current = current->next;
+        if(graphList[i]->edges.front().first > 1){
+            int j = 0;
+            while(j != graphList[i]->edges.size()){
+                cout << " -> " << graphList[i]->edges[j].first << ": " << graphList[i]->edges[j].second;
+                j++;
+            }
         }
         cout << endl;
     }
 }
 
 void Graph::breadthFirstTraversal(int startVertex){
-    DataVertex* current; 
     for(int i=0; i<vertexCount; i++){
         cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
-        current = graphList[i]->next;
-        while(current){
-            cout << " -> " << current->data.id << ": " << current->data.information;
-            current = current->next;
-        }
         cout << endl;
     }
 }
