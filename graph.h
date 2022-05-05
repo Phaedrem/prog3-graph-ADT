@@ -42,6 +42,7 @@ private:
     vector<Vertex*> graphList;
     int binarySearch(int, int, int);
     void createVertex(Vertex**, int, string*);
+    bool createEdge(int, int, int);
 
 };
 
