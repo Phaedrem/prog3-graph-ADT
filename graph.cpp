@@ -17,7 +17,6 @@ Graph::Graph(){
     graphList.assign(1, nullptr);
 }
 
-
 Graph::~Graph(){
     DataVertex* current;
     for (int i = 0; i < vertexCount; i++){
@@ -66,11 +65,11 @@ PUBLIC
 
 
 int Graph::getNumVertices(){
-    return 0;
+    return vertexCount;
 }
 
 int Graph::getNumEdges(){
-    return 0;
+    return edgeCount;
 }
 
 int Graph::getEdgeWeight(int startVertex, int endVertex){
