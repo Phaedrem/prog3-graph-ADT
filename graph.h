@@ -9,11 +9,13 @@ Purpose: Creating a graph ADT
 
 #include <iostream>
 #include <vector>
+#include <utility>
 #include "data.h"
 
 using std::cout;
 using std::endl;
 using std::vector;
+using std::make_pair;
 
 class Graph{
 
@@ -37,9 +39,9 @@ private:
 
     int vertexCount;
     int edgeCount;
-    vector<DataVertex*> graphList;
+    vector<Vertex*> graphList;
     int binarySearch(int, int, int);
-    void createVertex(DataVertex**, int, string*);
+    void createVertex(Vertex**, int, string*);
 
 };
 
