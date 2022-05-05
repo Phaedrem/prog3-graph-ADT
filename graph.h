@@ -39,6 +39,7 @@ private:
     int edgeCount;
     vector<DataVertex*> graphList;
     int binarySearch(int, int, int);
+    void createVertex(DataVertex**, int, string*);
 
 };
 
