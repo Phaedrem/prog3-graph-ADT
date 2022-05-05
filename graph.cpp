@@ -11,37 +11,12 @@ CONSTRUCTORS / DESTRUCTORS
 *********************************/
 
 
-/*Graph::Graph(){
-    vertexCount = 0;
-    edgeCount = 0;
-    graphList.assign(1, nullptr);
-}*/
-
 Graph::Graph(){
     vertexCount = 0;
     edgeCount = 0;
-    for(int i=0; i<10; i++){
-        DataVertex* newVertex = new DataVertex;
-        graphList.push_back(newVertex);
-        graphList[i]->data.id = (i+1)*2;
-        graphList[i]->data.information = "RANDOM";
-        graphList[i]->next = nullptr;
-        vertexCount++;
-    }
-    DataVertex* testVertex1 = new DataVertex;
-    testVertex1->data.id = 100;
-    testVertex1->data.information = "MONKEY";
-    testVertex1->next = nullptr;
-    graphList[0]->next = testVertex1;
-    edgeCount++;
-
-    DataVertex* testVertex2 = new DataVertex;
-    testVertex2->data.id = 88;
-    testVertex2->data.information = "SNAKE";
-    testVertex2->next = nullptr;
-    graphList[0]->next->next = testVertex2;
-    edgeCount++;
+    graphList.assign(1, nullptr);
 }
+
 
 Graph::~Graph(){
     DataVertex* current;
@@ -77,6 +52,13 @@ int Graph::binarySearch(int beginning, int end, int id){
     return mid;
 }
 
+void Graph::createVertex(DataVertex** vertexBox, int id, string* info){
+    DataVertex* newVertex = new DataVertex;
+    newVertex->data.id = id;
+    newVertex->data.information = *info;
+    newVertex->next = nullptr;
+    *vertexBox = newVertex;
+}
 
 /*********************************
 PUBLIC
@@ -98,19 +80,29 @@ int Graph::getEdgeWeight(int startVertex, int endVertex){
 bool Graph::addVertex(int id, string* info){
     bool added = false;
     if(id > 0 && *info != ""){
-        int mid = (vertexCount-1)/2;
-        int placeHolder = binarySearch(0, vertexCount-1, id);
-        if(id != graphList[placeHolder]->data.id){
-            DataVertex* testVertex3 = new DataVertex;
-            testVertex3->data.id = id;
-            testVertex3->data.information = *info;
-            testVertex3->next = nullptr;
-            if(id > graphList[mid-1]->data.id && id < graphList[mid]->data.id){
-                placeHolder = placeHolder+1;
-            }
-            graphList.insert(graphList.begin()+placeHolder, testVertex3);
+        DataVertex* testVertex3;
+        if(!graphList[0]){
+            createVertex(&testVertex3, id, info);
+            graphList[0] = testVertex3;
             vertexCount++;
             added = true;
+        }else if(graphList[0] && id > graphList[vertexCount-1]->data.id){
+            createVertex(&testVertex3, id, info);
+            graphList.push_back(testVertex3);
+            vertexCount++;
+            added = true;
+        }else{
+            int placeHolder = binarySearch(0, vertexCount-1, id);
+            if(id != graphList[placeHolder]->data.id){
+                createVertex(&testVertex3, id, info);
+                if(id < graphList[placeHolder]->data.id){
+                    graphList.insert(graphList.begin()+placeHolder, testVertex3);
+                }else{
+                    graphList.insert(graphList.begin()+placeHolder+1, testVertex3);
+                }
+                vertexCount++;
+                added = true;
+            }
         }
     }
     return added;
@@ -131,24 +123,26 @@ bool Graph::removeEdge(int startVertex, int endVertex){
 void Graph::depthFirstTraversal(int startVertex){
     DataVertex* current; 
     for(int i=0; i<vertexCount; i++){
-        cout << "vertex " << graphList[i]->data.id << " contains: " << graphList[i]->data.information << endl;
+        cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
         current = graphList[i]->next;
         while(current){
-            cout << "It is connected to vertex " << current->data.id << " which contains: " << current->data.information << endl;
+            cout << " -> " << current->data.id << ": " << current->data.information;
             current = current->next;
         }
+        cout << endl;
     }
 }
 
 void Graph::breadthFirstTraversal(int startVertex){
     DataVertex* current; 
     for(int i=0; i<vertexCount; i++){
-        cout << "vertex " << graphList[i]->data.id << " contains: " << graphList[i]->data.information << endl;
+        cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
         current = graphList[i]->next;
         while(current){
-            cout << "It is connected to vertex " << current->data.id << " which contains: " << current->data.information << endl;
+            cout << " -> " << current->data.id << ": " << current->data.information;
             current = current->next;
         }
+        cout << endl;
     }
 }
 
