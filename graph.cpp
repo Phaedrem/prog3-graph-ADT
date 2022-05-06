@@ -169,7 +169,26 @@ bool Graph::removeVertex(int id){
 }
 
 bool Graph::removeEdge(int startVertex, int endVertex){
-    return true;
+    bool removed = false;
+    int firstVectorIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
+    int secondVectorIndex = vertexBinarySearch(STARTPOSITION,vertexCount-1, endVertex);
+    if(startVertex != endVertex && startVertex == graphList[firstVectorIndex]->data.id && endVertex == graphList[secondVectorIndex]->data.id){
+        int firstEdgeIndex = edgeBinarySearch(firstVectorIndex, STARTPOSITION, graphList[firstVectorIndex]->edges.size()-1, endVertex);
+        int secondEdgeIndex = edgeBinarySearch(secondVectorIndex, STARTPOSITION, graphList[secondVectorIndex]->edges.size()-1, startVertex);
+        if(startVertex == graphList[secondVectorIndex]->edges[secondEdgeIndex].first && endVertex == graphList[firstVectorIndex]->edges[firstEdgeIndex].first){
+                graphList[firstVectorIndex]->edges.erase(graphList[firstVectorIndex]->edges.begin()+firstEdgeIndex);
+                graphList[secondVectorIndex]->edges.erase(graphList[secondVectorIndex]->edges.begin()+secondEdgeIndex);
+                if(graphList[firstVectorIndex]->edges.size() == 0){
+                    graphList[firstVectorIndex]->edges.push_back(make_pair(-1,-1));
+                }
+                if(graphList[secondVectorIndex]->edges.size() == 0){
+                    graphList[secondVectorIndex]->edges.push_back(make_pair(-1,-1));
+                }
+                edgeCount--;
+                removed = true;
+        }  
+    }
+    return removed;
 }
 
 void Graph::depthFirstTraversal(int startVertex){
