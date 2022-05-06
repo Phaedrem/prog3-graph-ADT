@@ -17,6 +17,8 @@ using std::endl;
 using std::vector;
 using std::make_pair;
 
+#define STARTPOSITION 0
+
 class Graph{
 
 
@@ -40,7 +42,8 @@ private:
     int vertexCount;
     int edgeCount;
     vector<Vertex*> graphList;
-    int binarySearch(int, int, int);
+    int vertexBinarySearch(int, int, int);
+    int edgeBinarySearch(int, int, int, int);
     void createVertex(Vertex**, int, string*);
     bool createEdge(int, int, int);
     void depthFirstAssist(int, vector<bool>&);
