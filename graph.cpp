@@ -165,7 +165,17 @@ bool Graph::addEdge(int startVertex, int endVertex, int weight){
 }
 
 bool Graph::removeVertex(int id){
-    return true;
+    bool removed = false;
+    int idIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
+    if(id == graphList[idIndex]->data.id){
+        for(int i=0; i< graphList[idIndex]->edges.size(); i++){
+            removeEdge(id, graphList[idIndex]->edges[i].first);
+        }
+        graphList.erase(graphList.begin()+idIndex);
+        vertexCount--;
+        removed = true;
+    }
+    return removed;
 }
 
 bool Graph::removeEdge(int startVertex, int endVertex){
