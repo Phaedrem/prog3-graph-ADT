@@ -50,17 +50,14 @@ int main(int argc, char** argv){
 
     newGraph.breadthFirstTraversal(7);
 
-    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
-    /*for(int i = 1; i<=10; i++){
-        cout << "creating edge between " << 1 << " and " << i+1 << "... ";
-        if(newGraph.addEdge(1, i+1, i*2)){
-            cout << "success" << endl;
-        }else{
-            cout << "failed" << endl;
-        }
-    }*/
-
+    if(newGraph.getEdgeWeight(7,1)){
+        cout << "the edge weight between vertex 7 & 1 is " << newGraph.getEdgeWeight(7,1) << endl;
+    }else{
+        cout << "there is no edge between 7 & 1" << endl;
+    }
+    
     cout << endl;
 
     newGraph.breadthFirstTraversal(7);
