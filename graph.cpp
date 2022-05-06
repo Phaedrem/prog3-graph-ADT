@@ -89,8 +89,10 @@ bool Graph::createEdge(int vertex, int weight, int index){
 }
 
 void Graph::depthFirstAssist(int startingIndex, vector<bool> &visited){
-    visited[startingIndex] = true;
-    cout << graphList[startingIndex]->data.id << " ";
+    if(graphList[startingIndex]->edges[STARTPOSITION].first >0){
+        visited[startingIndex] = true;
+        cout << graphList[startingIndex]->data.id << " ";
+    }
     int edgeIndex;
     for(int i=0; i < graphList[startingIndex]->edges.size(); i++){
         edgeIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, graphList[startingIndex]->edges[i].first);
@@ -172,7 +174,7 @@ bool Graph::removeEdge(int startVertex, int endVertex){
 
 void Graph::depthFirstTraversal(int startVertex){
     int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-    if(graphList[startIndex]){
+    if(graphList[startIndex]->edges[STARTPOSITION].first > -1){
         vector<bool> visited(vertexCount, false);
         for(int i=0; i<vertexCount; i++){
             if(visited[startIndex] == false){
@@ -180,8 +182,9 @@ void Graph::depthFirstTraversal(int startVertex){
             }
             startIndex = (startIndex+1) % vertexCount;
         }
+    }else{
+        cout << graphList[startIndex]->data.id << " ";
     }
-    
 }
 
 void Graph::breadthFirstTraversal(int startVertex){
