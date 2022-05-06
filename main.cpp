@@ -30,7 +30,7 @@ int main(int argc, char** argv){
     }
     cout << endl;
 
-    newGraph.breadthFirstTraversal(7);
+    newGraph.depthFirstTraversal(7);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
@@ -65,6 +65,32 @@ int main(int argc, char** argv){
     newGraph.breadthFirstTraversal(7);
 
     newGraph.depthFirstTraversal(7);
+
+    cout << endl << endl;
+
+    cout << "Removing edge between 2 and 10" << endl;
+    newGraph.removeEdge(2, 10);
+
+    cout << "Removing edge between 4 and 3" << endl;
+    newGraph.removeEdge(4, 3);
+
+
+    newGraph.breadthFirstTraversal(9);
+
+    cout << endl;
+
+    newGraph.depthFirstTraversal(9);
+
+    cout << endl << endl <<"Removing vertex 3" << endl << endl;
+
+    newGraph.removeVertex(3);
+
+    newGraph.breadthFirstTraversal(7);
+
+    cout << endl << endl;
+
+    newGraph.depthFirstTraversal(7);
+
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
