@@ -30,31 +30,41 @@ int main(int argc, char** argv){
     }
     cout << endl;
 
-    newGraph.breadthFirstTraversal(1);
+    newGraph.breadthFirstTraversal(7);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
     cout << endl;
 
-    newGraph.addEdge(1, 4, 10);
-    newGraph.addEdge(1, 10, 88);
-    newGraph.addEdge(2, 7, 88);
-    newGraph.addEdge(4, 9, 88);
-    newGraph.addEdge(4, 3, 88);
+    newGraph.addEdge(7, 1, 10);
+    newGraph.addEdge(7, 2, 88);
+    newGraph.addEdge(1, 6, 88);
+    newGraph.addEdge(6, 8, 88);
+    newGraph.addEdge(6, 9, 88);
+    newGraph.addEdge(10, 2, 88);
+    newGraph.addEdge(2, 5, 88);
+    newGraph.addEdge(3, 5, 88);
+    newGraph.addEdge(3, 4, 88);
+    newGraph.addEdge(4, 10, 88);
+
+    newGraph.breadthFirstTraversal(7);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
-    for(int i = 1; i<=10; i++){
+    /*for(int i = 1; i<=10; i++){
         cout << "creating edge between " << 1 << " and " << i+1 << "... ";
         if(newGraph.addEdge(1, i+1, i*2)){
             cout << "success" << endl;
         }else{
             cout << "failed" << endl;
         }
-    }
+    }*/
 
+    cout << endl;
 
-    newGraph.depthFirstTraversal(1);
+    newGraph.breadthFirstTraversal(7);
+
+    newGraph.depthFirstTraversal(7);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
