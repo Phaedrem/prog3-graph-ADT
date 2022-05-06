@@ -54,32 +54,31 @@ void Graph::createVertex(Vertex** vertexBox, int id, string* info){
 
 bool Graph::createEdge(int vertex, int weight, int index){
     bool created = false;
-    int current = graphList[index]->edges.front().first;
-    int i = 0;
-    while(current != graphList[index]->edges.back().first && current != vertex){
-        current = graphList[index]->edges[i].first;
-        i++;
-    }
-    if(current != vertex){
-        if(graphList[index]->edges.front().first == -1){
-            graphList[index]->edges[0].first = vertex;
-            graphList[index]->edges[0].second = weight;
-        }else{
-            graphList[index]->edges.push_back(make_pair(vertex, weight));
+    if(graphList[index]->edges.front().first == -1){
+        graphList[index]->edges[0].first = vertex;
+        graphList[index]->edges[0].second = weight;
+    }else if(vertex > graphList[index]->edges.back().first){
+        graphList[index]->edges.push_back(make_pair(vertex, weight));
+    }else{
+        int nestedIndex = binarySearch(0, graphList[index]->edges.size(), vertex);
+        if(vertex != graphList[index]->edges[nestedIndex].first){
+            if(vertex < graphList[index]->edges[nestedIndex].first){
+                graphList[index]->edges.insert(graphList[index]->edges.begin()+nestedIndex, make_pair(vertex,weight));
+            }else{
+                graphList[index]->edges.insert(graphList[index]->edges.begin()+nestedIndex+1, make_pair(vertex,weight));
+            }
         }
-        created = true;
     }
+    created = true;
     return created;
 }
 
 void Graph::depthFirstAssist(int startingIndex, vector<bool> &visited){
     visited[startingIndex] = true;
     cout << graphList[startingIndex]->data.id << " ";
-    int edgeID;
     int edgeIndex;
     for(int i=0; i < graphList[startingIndex]->edges.size(); i++){
-        edgeID = graphList[startingIndex]->edges[i].first;
-        edgeIndex = binarySearch(0,vertexCount-1,edgeID);
+        edgeIndex = binarySearch(0,vertexCount-1, graphList[startingIndex]->edges[i].first);
         if(visited[edgeIndex] == false){
             depthFirstAssist(edgeIndex, visited);
         }
