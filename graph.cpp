@@ -193,17 +193,18 @@ bool Graph::removeEdge(int startVertex, int endVertex){
 
 void Graph::depthFirstTraversal(int startVertex){
     int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-    if(graphList[startIndex]->edges[STARTPOSITION].first > -1){
-        vector<bool> visited(vertexCount, false);
-        for(int i=0; i<vertexCount; i++){
+    vector<bool> visited(vertexCount, false);
+    if(graphList[startIndex]->edges.front().first > 0){
+        for(int i=0; i<graphList[startIndex]->edges.size(); i++){
             if(visited[startIndex] == false){
                 depthFirstAssist(startIndex, visited);
             }
             startIndex = (startIndex+1) % vertexCount;
         }
     }else{
-        cout << graphList[startIndex]->data.id << " ";
+        cout << graphList[startIndex]->data.id << endl;
     }
+    
 }
 
 void Graph::breadthFirstTraversal(int startVertex){
