@@ -29,13 +29,28 @@ PRIVATE
 *********************************/
 
 
-int Graph::binarySearch(int beginning, int end, int id){
+int Graph::vertexBinarySearch(int beginning, int end, int id){
     int mid = -1;
     while(beginning <= end){
         mid = beginning+(end-beginning)/2;
         if(graphList[mid]->data.id < id){
             beginning = mid+1;
         }else if(graphList[mid]->data.id > id){
+            end = mid-1;
+        }else{
+            beginning = end+1;
+        }
+    }
+    return mid;
+}
+
+int Graph::edgeBinarySearch(int vertexIndex, int beginning, int end , int id){
+    int mid = -1;
+    while(beginning <= end){
+        mid = beginning+(end-beginning)/2;
+        if(graphList[vertexIndex]->edges[mid].first < id){
+            beginning = mid+1;
+        }else if(graphList[vertexIndex]->edges[mid].first > id){
             end = mid-1;
         }else{
             beginning = end+1;
@@ -55,12 +70,12 @@ void Graph::createVertex(Vertex** vertexBox, int id, string* info){
 bool Graph::createEdge(int vertex, int weight, int index){
     bool created = false;
     if(graphList[index]->edges.front().first == -1){
-        graphList[index]->edges[0].first = vertex;
-        graphList[index]->edges[0].second = weight;
+        graphList[index]->edges[STARTPOSITION].first = vertex;
+        graphList[index]->edges[STARTPOSITION].second = weight;
     }else if(vertex > graphList[index]->edges.back().first){
         graphList[index]->edges.push_back(make_pair(vertex, weight));
     }else{
-        int nestedIndex = binarySearch(0, graphList[index]->edges.size(), vertex);
+        int nestedIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size(), vertex);
         if(vertex != graphList[index]->edges[nestedIndex].first){
             if(vertex < graphList[index]->edges[nestedIndex].first){
                 graphList[index]->edges.insert(graphList[index]->edges.begin()+nestedIndex, make_pair(vertex,weight));
@@ -78,7 +93,7 @@ void Graph::depthFirstAssist(int startingIndex, vector<bool> &visited){
     cout << graphList[startingIndex]->data.id << " ";
     int edgeIndex;
     for(int i=0; i < graphList[startingIndex]->edges.size(); i++){
-        edgeIndex = binarySearch(0,vertexCount-1, graphList[startingIndex]->edges[i].first);
+        edgeIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, graphList[startingIndex]->edges[i].first);
         if(visited[edgeIndex] == false){
             depthFirstAssist(edgeIndex, visited);
         }
@@ -106,18 +121,18 @@ bool Graph::addVertex(int id, string* info){
     bool added = false;
     if(id > 0 && *info != ""){
         Vertex* testVertex;
-        if(!graphList[0]){
+        if(!graphList[STARTPOSITION]){
             createVertex(&testVertex, id, info);
-            graphList[0] = testVertex;
+            graphList[STARTPOSITION] = testVertex;
             vertexCount++;
             added = true;
-        }else if(graphList[0] && id > graphList[vertexCount-1]->data.id){
+        }else if(graphList[STARTPOSITION] && id > graphList[vertexCount-1]->data.id){
             createVertex(&testVertex, id, info);
             graphList.push_back(testVertex);
             vertexCount++;
             added = true;
         }else{
-            int placeHolder = binarySearch(0, vertexCount-1, id);
+            int placeHolder = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
             if(id != graphList[placeHolder]->data.id){
                 createVertex(&testVertex, id, info);
                 if(id < graphList[placeHolder]->data.id){
@@ -135,8 +150,8 @@ bool Graph::addVertex(int id, string* info){
 
 bool Graph::addEdge(int startVertex, int endVertex, int weight){
     bool connected = false;
-    int firstIndex = binarySearch(0, vertexCount-1, startVertex);
-    int secondIndex = binarySearch(0,vertexCount-1, endVertex);
+    int firstIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
+    int secondIndex = vertexBinarySearch(STARTPOSITION,vertexCount-1, endVertex);
     if(startVertex != endVertex && startVertex == graphList[firstIndex]->data.id && endVertex == graphList[secondIndex]->data.id){
         if(createEdge(endVertex, weight, firstIndex)){
             createEdge(startVertex, weight, secondIndex);
@@ -156,7 +171,7 @@ bool Graph::removeEdge(int startVertex, int endVertex){
 }
 
 void Graph::depthFirstTraversal(int startVertex){
-    int startIndex = binarySearch(0, vertexCount-1, startVertex);
+    int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
     if(graphList[startIndex]){
         vector<bool> visited(vertexCount, false);
         for(int i=0; i<vertexCount; i++){
@@ -172,7 +187,7 @@ void Graph::depthFirstTraversal(int startVertex){
 void Graph::breadthFirstTraversal(int startVertex){
     for(int i=0; i<vertexCount; i++){
         cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
-        if(graphList[i]->edges.front().first > 0){
+        if(graphList[i]->edges.front().first > STARTPOSITION){
             int j = 0;
             while(j != graphList[i]->edges.size()){
                 cout << " -> " << graphList[i]->edges[j].first << ": " << graphList[i]->edges[j].second;
