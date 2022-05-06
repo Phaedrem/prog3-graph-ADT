@@ -13,7 +13,8 @@ int main(int argc, char** argv){
     Graph newGraph;
 
     cout << endl;
-    cout << endl << endl; 
+    newGraph.breadthFirstTraversal(9);
+    newGraph.depthFirstTraversal(9);
     for(int i = 0; i<=5; i++){
         if(newGraph.addVertex(i*2, &stringName)){
             cout << "added " << i*2 << ": " << stringName << endl;
@@ -85,12 +86,29 @@ int main(int argc, char** argv){
 
     newGraph.removeVertex(3);
 
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
+
     newGraph.breadthFirstTraversal(7);
 
     cout << endl << endl;
 
     newGraph.depthFirstTraversal(7);
+    cout << endl << "CLEARING" << endl;
+    newGraph.clear();
+    cout << endl << "CLEARED" << endl;
+    newGraph.breadthFirstTraversal(7);
 
+    newGraph.depthFirstTraversal(7);
+
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
+
+    for(int i = 0; i<=5; i++){
+        if(newGraph.addVertex(i*2, &stringName)){
+            cout << "added " << i*2 << ": " << stringName << endl;
+        }
+    }
+
+    newGraph.breadthFirstTraversal(7);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
