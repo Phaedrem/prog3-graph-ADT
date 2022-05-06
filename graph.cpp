@@ -18,9 +18,7 @@ Graph::Graph(){
 }
 
 Graph::~Graph(){
-    for (int i = 0; i < vertexCount; i++){
-        delete graphList[i];
-    }
+    clear();
 }
 
 
@@ -172,6 +170,7 @@ bool Graph::removeVertex(int id){
             removeEdge(id, graphList[idIndex]->edges[i].first);
         }
         graphList.erase(graphList.begin()+idIndex);
+        graphList.shrink_to_fit();
         vertexCount--;
         removed = true;
     }
@@ -202,35 +201,48 @@ bool Graph::removeEdge(int startVertex, int endVertex){
 }
 
 void Graph::depthFirstTraversal(int startVertex){
-    int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-    vector<bool> visited(vertexCount, false);
-    if(graphList[startIndex]->edges.front().first > 0){
-        for(int i=0; i<graphList[startIndex]->edges.size(); i++){
-            if(visited[startIndex] == false){
-                depthFirstAssist(startIndex, visited);
+    if(graphList.front()){
+        int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
+        vector<bool> visited(vertexCount, false);
+        if(graphList[startIndex]->edges.front().first > 0){
+            for(int i=0; i<graphList[startIndex]->edges.size(); i++){
+                if(visited[startIndex] == false){
+                    depthFirstAssist(startIndex, visited);
+                }
+                startIndex = (startIndex+1) % vertexCount;
             }
-            startIndex = (startIndex+1) % vertexCount;
+        }else{
+            cout << graphList[startIndex]->data.id << endl;
         }
+        cout << endl;
     }else{
-        cout << graphList[startIndex]->data.id << endl;
+        cout << "LIST IS EMPTY" << endl;
     }
-    
 }
 
 void Graph::breadthFirstTraversal(int startVertex){
-    for(int i=0; i<vertexCount; i++){
-        cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
-        if(graphList[i]->edges.front().first > STARTPOSITION){
-            int j = 0;
-            while(j != graphList[i]->edges.size()){
-                cout << " -> " << graphList[i]->edges[j].first << ": " << graphList[i]->edges[j].second;
-                j++;
+    if(graphList.front()){
+        for(int i=0; i<vertexCount; i++){
+            cout << graphList[i]->data.id << ": " << graphList[i]->data.information;
+            if(graphList[i]->edges.front().first > STARTPOSITION){
+                int j = 0;
+                while(j != graphList[i]->edges.size()){
+                    cout << " -> " << graphList[i]->edges[j].first << ": " << graphList[i]->edges[j].second;
+                    j++;
+                }
             }
+            cout << endl;
         }
-        cout << endl;
+    }else{
+        cout << "LIST IS EMPTY" << endl;
     }
 }
 
 void Graph::clear(){
-
+    for(int i=0; i<vertexCount; i++){
+        delete graphList[i];
+    }
+    graphList.assign(1, nullptr);
+    vertexCount = 0;
+    edgeCount = 0;
 }
