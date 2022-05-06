@@ -114,7 +114,15 @@ int Graph::getNumEdges(){
 }
 
 int Graph::getEdgeWeight(int startVertex, int endVertex){
-    return 0;
+    int weight = -1;
+    int index = vertexBinarySearch(STARTPOSITION, vertexCount, startVertex);
+    if(startVertex = graphList[index]->data.id){
+        int edgeIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size()-1, endVertex);
+        if(endVertex = graphList[index]->edges[edgeIndex].first){
+            weight = graphList[index]->edges[edgeIndex].second;
+        }
+    }
+    return weight;
 }
 
 bool Graph::addVertex(int id, string* info){
