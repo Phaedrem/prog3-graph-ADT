@@ -314,7 +314,7 @@ int main(int argc, char** argv){
     }else{
         cout << "Failed to remove" << endl;
     }
-    cout << endl << "Attemping to remove randomEdges" << endl;
+    cout << endl << "Attemping to remove random edges" << endl;
     for(int i=0; i < TESTDATA1; i++){
         testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
         testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
@@ -332,17 +332,32 @@ int main(int argc, char** argv){
     newGraph.breadthFirstTraversal(testInt3);
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
-    /*cout << endl << endl <<"Removing vertex 3" << endl << endl;
 
-    newGraph.removeVertex(3);
-
-    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
-
+    cout << "========== removeVertex ==========" << endl;
+     cout << "Attemping to remove a guaranteed vertex " << testInt3 << endl;
+    if(newGraph.removeVertex(testInt3)){
+        cout << "Vertex Removed" << endl;
+    }else{
+        cout << "Failed to remove" << endl;
+    }
+    cout << endl << "Attemping to remove pre-made vertexs" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        cout << "Attempting to remove vertex " << testInt << endl;
+        if(newGraph.removeVertex(testInt)){
+            cout << "Vertex Removed" << endl;
+        }else{
+            cout << "Failed to remove" << endl;
+        }
+    }
+    cout << endl;
     newGraph.printGraph();
-
-    cout << endl << endl;
-
-    newGraph.depthFirstTraversal(7);
+    cout << endl;
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
+    
+    /*newGraph.depthFirstTraversal(7);
     newGraph.breadthFirstTraversal(7);
     cout << endl << "CLEARING" << endl;
     newGraph.clear();
