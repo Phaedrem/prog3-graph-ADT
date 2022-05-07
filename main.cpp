@@ -11,6 +11,7 @@ int main(int argc, char** argv){
 
     string stringName = "TURTLE";
     Graph newGraph;
+    Data emptyData;
 
     cout << endl;
     newGraph.printGraph();
@@ -70,6 +71,11 @@ int main(int argc, char** argv){
         cout << "there is no vertex with ID 12" << endl;
     }
 
+    if(newGraph.getVertex(12, &emptyData)){
+        cout << emptyData.id << ": " << emptyData.information << endl;
+    }else{
+        cout << "VERTEX NOT FOUND" << endl;
+    }
 
     cout << endl;
 
