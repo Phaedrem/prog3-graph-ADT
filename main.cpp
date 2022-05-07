@@ -25,7 +25,7 @@ int main(int argc, char** argv){
     newGraph.printGraph();
     newGraph.depthFirstTraversal(9);
     newGraph.depthFirstTraversal(9);
-
+    cout << endl;
     cout << "==============================================" << endl;
     cout << "Adding vertices" << endl;
     cout << "==============================================" << endl;
@@ -41,7 +41,27 @@ int main(int argc, char** argv){
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
     cout << endl << "Printing Graph" << endl;
     newGraph.printGraph();
-    
+    cout << endl;
+
+    testString = "";
+    cout << endl << "Testing an empty string" << endl;
+    if(newGraph.addVertex(testInt, &testString)){
+        cout << "added " << testInt << ": " << testString << endl;
+    }else{
+        cout << "Failed to add " << testInt << ": " << testString << endl;
+    }
+    cout << endl;
+
+
+    testInt = 0;
+    testString = strings1[0];
+    cout << endl << "Testing an ID out of range" << endl;
+    if(newGraph.addVertex(testInt, &testString)){
+        cout << "added " << testInt << ": " << testString << endl;
+    }else{
+        cout << "Failed to add " << testInt << ": " << testString << endl;
+    }
+    cout << endl;
     cout << "==============================================" << endl;
     cout << "Adding more vertices" << endl;
     cout << "==============================================" << endl;
@@ -57,16 +77,13 @@ int main(int argc, char** argv){
     cout << endl << "Printing Graph" << endl;
     newGraph.printGraph();
     testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl;
     cout << endl << "Depth First: ";
     newGraph.depthFirstTraversal(testInt);
     cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt);
-
-    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
-
     cout << endl;
-
     cout << "==============================================" << endl;
     cout << "Adding edges" << endl;
     cout << "==============================================" << endl;
@@ -90,15 +107,42 @@ int main(int argc, char** argv){
     newGraph.depthFirstTraversal(testInt);
     cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt);
-
     cout << endl;
-    if(newGraph.getEdgeWeight(7,1) > MIN){
-        cout << "the edge weight between vertex 7 & 1 is " << newGraph.getEdgeWeight(7,1) << endl;
-    }else{
-        cout << "there is no edge between 7 & 1" << endl;
+
+    testInt = 0;
+    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal on a vertex out of range " << endl << endl;
+    cout << endl << "Depth First: ";
+    newGraph.depthFirstTraversal(testInt);
+    cout << "Breadth First: ";
+    newGraph.breadthFirstTraversal(testInt);
+    cout << endl;
+
+
+    cout << "==============================================" << endl;
+    cout << "Getting Weights" << endl;
+    cout << "==============================================" << endl;
+    for(int i=0; i<TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testWeight = newGraph.getEdgeWeight(testInt,testInt2);
+        if(testWeight > MIN){
+            cout << "The edge weight between vertex " << testInt << " and " << testInt2 << " is " << testWeight << endl;
+        }else{
+            cout << "There is no edge between " << testInt << " and " << testInt2 << endl;
+        }
     }
     
-    if(newGraph.edgeExist(7,12)){
+    cout << endl << "Testing an ID out of range" << endl;
+    testInt = 0;
+    testWeight = newGraph.getEdgeWeight(testInt,testInt2);
+    if(testWeight > MIN){
+            cout << "The edge weight between vertex " << testInt << " and " << testInt2 << " is " << testWeight << endl;
+        }else{
+            cout << "There is no edge between " << testInt << " and " << testInt2 << endl;
+        }
+
+
+    /*if(newGraph.edgeExist(7,12)){
         cout << "An edge between 7 & 12 exists" << endl;
     }else{
         cout << "there is no edge between 7 & 12" << endl;
@@ -166,7 +210,7 @@ int main(int argc, char** argv){
 
     newGraph.printGraph();
 
-    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;*/
 
     return 0;
 }
