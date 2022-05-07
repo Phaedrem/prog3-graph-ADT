@@ -174,11 +174,13 @@ int Graph::getNumEdges(){
 
 int Graph::getEdgeWeight(int startVertex, int endVertex){
     int weight = PRIMER;
-    int index = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-    if(startVertex == graphList[index]->data.id){
-        int edgeIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size()-1, endVertex);
-        if(endVertex == graphList[index]->edges[edgeIndex].first){
-            weight = graphList[index]->edges[edgeIndex].second;
+    if(graphList.front()){
+        int index = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
+        if(startVertex == graphList[index]->data.id){
+            int edgeIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size()-1, endVertex);
+            if(endVertex == graphList[index]->edges[edgeIndex].first){
+                weight = graphList[index]->edges[edgeIndex].second;
+            }
         }
     }
     return weight;
