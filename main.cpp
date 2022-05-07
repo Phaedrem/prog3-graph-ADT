@@ -16,7 +16,8 @@ int main(int argc, char** argv){
     string strings1[TESTDATA1] = {"TURTLE", "CAT", "DOG", "SNAKE", "BADGER", "LION","TIGER","BEAR", "GRIFFON","RAVEN"};
     int testInt;
     int testInt2;
-    int testInt3; 
+    int testInt3;
+    int testInt4;
     int testWeight; 
     string testString;
     
@@ -97,7 +98,7 @@ int main(int argc, char** argv){
     cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt);
     cout << endl;
-
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
     cout << "==============================================" << endl;
     cout << "Adding vertices" << endl;
@@ -167,6 +168,8 @@ int main(int argc, char** argv){
         testWeight = (std::rand() % (MAX - MIN + 1)) +MIN;
         if(newGraph.addEdge(testInt, testInt2, testWeight)){
             cout << "Added an edge between " << testInt << " and " << testInt2 << " with a weight of " << testWeight << endl;
+            testInt3 = testInt;
+            testInt4 = testInt2;
         }else{
             cout << "Failed to add an edge between " << testInt << " and " << testInt2 << endl;
         }
@@ -175,21 +178,19 @@ int main(int argc, char** argv){
     newGraph.printGraph();
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
-    cout << "Attempting to add duplicate edge between " << testInt2 << " and " << testInt << endl;
-    if(newGraph.addEdge(testInt2, testInt, testWeight)){
-        cout << "Added an edge between " << testInt2 << " and " << testInt << " with a weight of " << testWeight << endl;
+    cout << "Attempting to add duplicate edge between " << testInt4 << " and " << testInt3 << endl;
+    if(newGraph.addEdge(testInt4, testInt3, testWeight)){
+        cout << "Added an edge between " << testInt4 << " and " << testInt3 << " with a weight of " << testWeight << endl;
     }else{
-        cout << "Failed to add an edge between " << testInt2 << " and " << testInt << endl;
+        cout << "Failed to add an edge between " << testInt4 << " and " << testInt3 << endl;
     }
 
-    testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
-    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl << endl;
+    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt3 << endl << endl;
     cout << endl << "Depth First: ";
-    newGraph.depthFirstTraversal(testInt);
+    newGraph.depthFirstTraversal(testInt3);
     cout << "Breadth First: ";
-    newGraph.breadthFirstTraversal(testInt);
+    newGraph.breadthFirstTraversal(testInt3);
     cout << endl;
-    testInt3 = testInt;
     testInt = 0;
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal on a vertex out of range " << endl << endl;
     cout << endl << "Depth First: ";
@@ -197,7 +198,7 @@ int main(int argc, char** argv){
     cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt);
     cout << endl;
-
+    
 
     cout << "==============================================" << endl;
     cout << "Getting Weights" << endl;
@@ -222,7 +223,7 @@ int main(int argc, char** argv){
             cout << "There is no edge between " << testInt << " and " << testInt2 << endl;
         }
 
-    cout << endl;
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
     cout << "==============================================" << endl;
     cout << "Testing Exist & Get Methods" << endl;
     cout << "==============================================" << endl;
@@ -275,7 +276,7 @@ int main(int argc, char** argv){
     }
 
     cout << endl << "========== getVertex ==========" << endl;
-    cout << "======== Pre-created IDs ========" << endl;
+    cout << "======= Pre-created IDs =======" << endl;
     for(int i=0; i < TESTDATA1; i++){
         testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
         if(newGraph.getVertex(testInt, &emptyData)){
@@ -285,32 +286,53 @@ int main(int argc, char** argv){
         }
     }
     
+    cout << "======== Random IDs ========" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.getVertex(testInt, &emptyData)){
+            cout << "Vertex " << testInt << " found " << emptyData.id << ": " << emptyData.information << endl;
+        }else{
+            cout << "Vertex " << testInt << " not found" << endl;
+        }
+    }
 
-    cout << endl;
+    cout << endl << "Trying print and traversal methods to show no change, starting at " << testInt3 << endl << endl;
     newGraph.printGraph();
-    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal to show no change, starting at " << testInt3 << endl << endl;
     cout << endl << "Depth First: ";
     newGraph.depthFirstTraversal(testInt3);
     cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
+
+    cout << "==============================================" << endl;
+    cout << "Testing Remove Methods" << endl;
+    cout << "==============================================" << endl;
+    cout << "========== removeEdge ==========" << endl;
+    cout << "Attemping to remove a guaranteed edge between " << testInt3 << " and " << testInt4 << endl;
+    if(newGraph.removeEdge(testInt3, testInt4)){
+        cout << "Edge Removed" << endl;
+    }else{
+        cout << "Failed to remove" << endl;
+    }
+    cout << endl << "Attemping to remove randomEdges" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        cout << "Attempting to remove edge between " << testInt << " and " << testInt2 << endl;
+        if(newGraph.removeEdge(testInt, testInt2)){
+            cout << "Edge Removed" << endl;
+        }else{
+            cout << "Failed to remove" << endl;
+        }
+    }
     cout << endl;
-
-    /*cout << "Removing edge between 2 and 10" << endl;
-    newGraph.removeEdge(2, 10);
-
-    cout << "Removing edge between 4 and 3" << endl;
-    newGraph.removeEdge(4, 3);
-
-
     newGraph.printGraph();
-
     cout << endl;
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
-    newGraph.depthFirstTraversal(9);
-
-    newGraph.breadthFirstTraversal(9);
-
-    cout << endl << endl <<"Removing vertex 3" << endl << endl;
+    /*cout << endl << endl <<"Removing vertex 3" << endl << endl;
 
     newGraph.removeVertex(3);
 
