@@ -231,39 +231,43 @@ bool Graph::addEdge(int startVertex, int endVertex, int weight){
 
 bool Graph::removeVertex(int id){
     bool removed = false;
-    int idIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
-    if(id == graphList[idIndex]->data.id){
-        while(graphList[idIndex]->edges.front().first > 0){
-            cout << "removing edge between " << id << " and " << graphList[idIndex]->edges.front().first << endl;
-            removeEdge(id, graphList[idIndex]->edges.front().first);
+    if(graphList.front()){
+        int idIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
+        if(id == graphList[idIndex]->data.id){
+            while(graphList[idIndex]->edges.front().first > 0){
+                cout << "removing edge between " << id << " and " << graphList[idIndex]->edges.front().first << endl;
+                removeEdge(id, graphList[idIndex]->edges.front().first);
+            }
+            graphList.erase(graphList.begin()+idIndex);
+            graphList.shrink_to_fit();
+            vertexCount--;
+            removed = true;
         }
-        graphList.erase(graphList.begin()+idIndex);
-        graphList.shrink_to_fit();
-        vertexCount--;
-        removed = true;
     }
     return removed;
 }
 
 bool Graph::removeEdge(int startVertex, int endVertex){
     bool removed = false;
-    int firstVectorIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-    int secondVectorIndex = vertexBinarySearch(STARTPOSITION,vertexCount-1, endVertex);
-    if(startVertex != endVertex && startVertex == graphList[firstVectorIndex]->data.id && endVertex == graphList[secondVectorIndex]->data.id){
-        int firstEdgeIndex = edgeBinarySearch(firstVectorIndex, STARTPOSITION, graphList[firstVectorIndex]->edges.size()-1, endVertex);
-        int secondEdgeIndex = edgeBinarySearch(secondVectorIndex, STARTPOSITION, graphList[secondVectorIndex]->edges.size()-1, startVertex);
-        if(startVertex == graphList[secondVectorIndex]->edges[secondEdgeIndex].first && endVertex == graphList[firstVectorIndex]->edges[firstEdgeIndex].first){
-                graphList[firstVectorIndex]->edges.erase(graphList[firstVectorIndex]->edges.begin()+firstEdgeIndex);
-                graphList[secondVectorIndex]->edges.erase(graphList[secondVectorIndex]->edges.begin()+secondEdgeIndex);
-                if(graphList[firstVectorIndex]->edges.size() == STARTPOSITION){
-                    graphList[firstVectorIndex]->edges.push_back(make_pair(PRIMER,PRIMER));
-                }
-                if(graphList[secondVectorIndex]->edges.size() == STARTPOSITION){
-                    graphList[secondVectorIndex]->edges.push_back(make_pair(PRIMER,PRIMER));
-                }
-                edgeCount--;
-                removed = true;
-        }  
+    if(graphList.front()){
+        int firstVectorIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
+        int secondVectorIndex = vertexBinarySearch(STARTPOSITION,vertexCount-1, endVertex);
+        if(startVertex != endVertex && startVertex == graphList[firstVectorIndex]->data.id && endVertex == graphList[secondVectorIndex]->data.id){
+            int firstEdgeIndex = edgeBinarySearch(firstVectorIndex, STARTPOSITION, graphList[firstVectorIndex]->edges.size()-1, endVertex);
+            int secondEdgeIndex = edgeBinarySearch(secondVectorIndex, STARTPOSITION, graphList[secondVectorIndex]->edges.size()-1, startVertex);
+            if(startVertex == graphList[secondVectorIndex]->edges[secondEdgeIndex].first && endVertex == graphList[firstVectorIndex]->edges[firstEdgeIndex].first){
+                    graphList[firstVectorIndex]->edges.erase(graphList[firstVectorIndex]->edges.begin()+firstEdgeIndex);
+                    graphList[secondVectorIndex]->edges.erase(graphList[secondVectorIndex]->edges.begin()+secondEdgeIndex);
+                    if(graphList[firstVectorIndex]->edges.size() == STARTPOSITION){
+                        graphList[firstVectorIndex]->edges.push_back(make_pair(PRIMER,PRIMER));
+                    }
+                    if(graphList[secondVectorIndex]->edges.size() == STARTPOSITION){
+                        graphList[secondVectorIndex]->edges.push_back(make_pair(PRIMER,PRIMER));
+                    }
+                    edgeCount--;
+                    removed = true;
+            }  
+        }
     }
     return removed;
 }
