@@ -374,7 +374,38 @@ int main(int argc, char** argv){
     newGraph.depthFirstTraversal(testInt3);
     newGraph.breadthFirstTraversal(testInt3);
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
+    cout << "========== clearEdges ==========" << endl;
+    cout << "Attemping to remove all edges" << endl;
+    newGraph.clearEdges();
+    cout << endl;
+    newGraph.printGraph();
+    cout << endl;
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
+    cout << "==============================================" << endl;
+    cout << "Adding edges" << endl;
+    cout << "==============================================" << endl;
+
+    for(int i = 0; i<TESTDATA2; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testWeight = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.addEdge(testInt, testInt2, testWeight)){
+            cout << "Added an edge between " << testInt << " and " << testInt2 << " with a weight of " << testWeight << endl;
+            testInt3 = testInt;
+            testInt4 = testInt2;
+        }else{
+            cout << "Failed to add an edge between " << testInt << " and " << testInt2 << endl;
+        }
+    }
+    cout << endl << "Printing Graph" << endl;
+    newGraph.printGraph();
+    cout << endl;
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
     cout << "========== removeVertex ==========" << endl;
     cout << "Attemping to remove a guaranteed vertex " << testInt3 << endl;
@@ -409,7 +440,7 @@ int main(int argc, char** argv){
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
     
     cout << "========== clear ==========" << endl;
-    newGraph.clear();
+    newGraph.clearGraph();
     cout << endl << "Cleared" << endl;
     newGraph.printGraph();
     newGraph.depthFirstTraversal(testInt3);
@@ -470,8 +501,12 @@ int main(int argc, char** argv){
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
     
     cout << "========== clear ==========" << endl;
-    newGraph.clear();
-    cout << endl << "Cleared" << endl;
+    cout << "Clearing Edges" << endl;
+    newGraph.clearEdges();
+    cout << "Cleared" << endl;
+    cout << "Clearing Vertices" << endl;
+    newGraph.clearGraph();
+    cout << "Cleared" << endl;
     newGraph.printGraph();
     newGraph.depthFirstTraversal(testInt3);
     newGraph.breadthFirstTraversal(testInt3);
