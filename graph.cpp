@@ -73,7 +73,7 @@ bool Graph::createEdge(int vertex, int weight, int index){
     }else if(vertex > graphList[index]->edges.back().first){
         graphList[index]->edges.push_back(make_pair(vertex, weight));
     }else{
-        int nestedIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size(), vertex);
+        int nestedIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size()-1, vertex);
         if(vertex != graphList[index]->edges[nestedIndex].first){
             if(vertex < graphList[index]->edges[nestedIndex].first){
                 graphList[index]->edges.insert(graphList[index]->edges.begin()+nestedIndex, make_pair(vertex,weight));
@@ -88,7 +88,7 @@ bool Graph::createEdge(int vertex, int weight, int index){
 
 void Graph::depthFirstAssist(int startingIndex, vector<bool> &visited){
     visited[startingIndex] = true;
-    cout << graphList[startingIndex]->data.id << " ";
+    cout << graphList[startingIndex]->data.id << ": " << graphList[startingIndex]->data.information << " ";
     int edgeIndex;
     for(int i=0; i < graphList[startingIndex]->edges.size(); i++){
         edgeIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, graphList[startingIndex]->edges[i].first);
@@ -100,7 +100,7 @@ void Graph::depthFirstAssist(int startingIndex, vector<bool> &visited){
 
 void Graph::breadthFirstAssist(int startingIndex, vector<bool> &visited, std::list<int> &queue){
     visited[startingIndex] = true;
-    cout << graphList[startingIndex]->data.id << " ";
+    cout << graphList[startingIndex]->data.id << ": " << graphList[startingIndex]->data.information << " ";
     for(int i=0; i < graphList[startingIndex]->edges.size(); i++){
         if(!visited[vertexBinarySearch(STARTPOSITION, vertexCount-1,graphList[startingIndex]->edges[i].first)]){
             queue.push_back(graphList[startingIndex]->edges[i].first);
@@ -119,6 +119,26 @@ void Graph::breadthFirstAssist(int startingIndex, vector<bool> &visited, std::li
 PUBLIC
 *********************************/
 
+bool Graph::edgeExist(int firstVertex, int secondVertex){
+    bool found = false;
+    int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, firstVertex);
+    if(firstVertex == graphList[vertexIndex]->data.id){
+        int edgeIndex = edgeBinarySearch(vertexIndex, STARTPOSITION, graphList[vertexIndex]->edges.size()-1, secondVertex);
+        if(secondVertex == graphList[vertexIndex]->edges[edgeIndex].first){
+            found = true; 
+        }
+    }
+    return found;
+}
+
+bool Graph::vertexExist(int firstVertex){
+    bool found = false;
+    int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, firstVertex);
+    if(firstVertex == graphList[vertexIndex]->data.id){
+        found = true; 
+    }
+    return found;
+}
 
 int Graph::getNumVertices(){
     return vertexCount;
@@ -130,10 +150,10 @@ int Graph::getNumEdges(){
 
 int Graph::getEdgeWeight(int startVertex, int endVertex){
     int weight = -1;
-    int index = vertexBinarySearch(STARTPOSITION, vertexCount, startVertex);
-    if(startVertex = graphList[index]->data.id){
+    int index = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
+    if(startVertex == graphList[index]->data.id){
         int edgeIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size()-1, endVertex);
-        if(endVertex = graphList[index]->edges[edgeIndex].first){
+        if(endVertex == graphList[index]->edges[edgeIndex].first){
             weight = graphList[index]->edges[edgeIndex].second;
         }
     }
@@ -230,7 +250,7 @@ void Graph::depthFirstTraversal(int startVertex){
             vector<bool> visited(vertexCount, false);
             depthFirstAssist(startIndex, visited);
         }else{
-            cout << graphList[startIndex]->data.id << endl;
+            cout << graphList[startIndex]->data.id << ": " << graphList[startIndex]->data.information << " " << endl;
         }
         cout << endl;
     }else{
@@ -246,7 +266,7 @@ void Graph::breadthFirstTraversal(int startVertex){
             std::list<int> queue;
             breadthFirstAssist(startIndex, visited, queue);
         }else{
-            cout << graphList[startIndex]->data.id << endl;
+            cout << graphList[startIndex]->data.id << ": " << graphList[startIndex]->data.information << " " << endl;
         }
         cout << endl;
     }else{
