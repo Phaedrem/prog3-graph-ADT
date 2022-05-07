@@ -259,12 +259,12 @@ bool Graph::removeEdge(int startVertex, int endVertex){
 void Graph::depthFirstTraversal(int startVertex){
     if(graphList.front()){
         int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-        if(startIndex == graphList[startIndex]->data.id){
+        if(startVertex == graphList[startIndex]->data.id){
             if(graphList[startIndex]->edges.front().first > 0){
                 vector<bool> visited(vertexCount, false);
                 depthFirstAssist(startIndex, visited);
             }else{
-                cout << graphList[startIndex]->data.id << ": " << graphList[startIndex]->data.information << " " << endl;
+                cout << graphList[startIndex]->data.id << ": " << graphList[startIndex]->data.information << " ";
             }
             cout << endl;
         }else{
@@ -278,13 +278,13 @@ void Graph::depthFirstTraversal(int startVertex){
 void Graph::breadthFirstTraversal(int startVertex){
     if(graphList.front()){
         int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-        if(startIndex == graphList[startIndex]->data.id){
+        if(startVertex == graphList[startIndex]->data.id){
             if(graphList[startIndex]->edges.front().first > 0){
                 vector<bool> visited(vertexCount, false);
                 std::list<int> queue;
                 breadthFirstAssist(startIndex, visited, queue);
             }else{
-                cout << graphList[startIndex]->data.id << ": " << graphList[startIndex]->data.information << " " << endl;
+                cout << graphList[startIndex]->data.id << ": " << graphList[startIndex]->data.information << " ";
             }
             cout << endl;
         }else{
