@@ -12,8 +12,8 @@ CONSTRUCTORS / DESTRUCTORS
 
 
 Graph::Graph(){
-    vertexCount = 0;
-    edgeCount = 0;
+    vertexCount = STARTPOSITION;
+    edgeCount = STARTPOSITION;
     graphList.assign(1, nullptr);
 }
 
@@ -28,7 +28,7 @@ PRIVATE
 
 
 int Graph::vertexBinarySearch(int beginning, int end, int id){
-    int mid = -1;
+    int mid = PRIMER;
     while(beginning <= end){
         mid = beginning+(end-beginning)/2;
         if(graphList[mid]->data.id < id){
@@ -43,7 +43,7 @@ int Graph::vertexBinarySearch(int beginning, int end, int id){
 }
 
 int Graph::edgeBinarySearch(int vertexIndex, int beginning, int end , int id){
-    int mid = -1;
+    int mid = PRIMER;
     while(beginning <= end){
         mid = beginning+(end-beginning)/2;
         if(graphList[vertexIndex]->edges[mid].first < id){
@@ -61,13 +61,13 @@ void Graph::createVertex(Vertex** vertexBox, int id, string* info){
     Vertex* newVertex = new Vertex;
     newVertex->data.id = id;
     newVertex->data.information = *info;
-    newVertex->edges.push_back(make_pair(-1, -1));
+    newVertex->edges.push_back(make_pair(PRIMER, PRIMER));
     *vertexBox = newVertex;
 }
 
 bool Graph::createEdge(int vertex, int weight, int index){
     bool created = false;
-    if(graphList[index]->edges.front().first == -1){
+    if(graphList[index]->edges.front().first == PRIMER){
         graphList[index]->edges[STARTPOSITION].first = vertex;
         graphList[index]->edges[STARTPOSITION].second = weight;
         created = true;
@@ -149,7 +149,7 @@ bool Graph::vertexExist(int firstVertex){
 bool Graph::getVertex(int vertexID, Data* dataBox){
     bool found = false;
     int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, vertexID);
-    dataBox->id = -1;
+    dataBox->id = PRIMER;
     dataBox->information = "";
     if(vertexID == graphList[vertexIndex]->data.id){
         dataBox->id = graphList[vertexIndex]->data.id;
@@ -168,7 +168,7 @@ int Graph::getNumEdges(){
 }
 
 int Graph::getEdgeWeight(int startVertex, int endVertex){
-    int weight = -1;
+    int weight = PRIMER;
     int index = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
     if(startVertex == graphList[index]->data.id){
         int edgeIndex = edgeBinarySearch(index, STARTPOSITION, graphList[index]->edges.size()-1, endVertex);
@@ -249,11 +249,11 @@ bool Graph::removeEdge(int startVertex, int endVertex){
         if(startVertex == graphList[secondVectorIndex]->edges[secondEdgeIndex].first && endVertex == graphList[firstVectorIndex]->edges[firstEdgeIndex].first){
                 graphList[firstVectorIndex]->edges.erase(graphList[firstVectorIndex]->edges.begin()+firstEdgeIndex);
                 graphList[secondVectorIndex]->edges.erase(graphList[secondVectorIndex]->edges.begin()+secondEdgeIndex);
-                if(graphList[firstVectorIndex]->edges.size() == 0){
-                    graphList[firstVectorIndex]->edges.push_back(make_pair(-1,-1));
+                if(graphList[firstVectorIndex]->edges.size() == STARTPOSITION){
+                    graphList[firstVectorIndex]->edges.push_back(make_pair(PRIMER,PRIMER));
                 }
-                if(graphList[secondVectorIndex]->edges.size() == 0){
-                    graphList[secondVectorIndex]->edges.push_back(make_pair(-1,-1));
+                if(graphList[secondVectorIndex]->edges.size() == STARTPOSITION){
+                    graphList[secondVectorIndex]->edges.push_back(make_pair(PRIMER,PRIMER));
                 }
                 edgeCount--;
                 removed = true;
@@ -266,7 +266,7 @@ void Graph::depthFirstTraversal(int startVertex){
     if(graphList.front()){
         int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
         if(startVertex == graphList[startIndex]->data.id){
-            if(graphList[startIndex]->edges.front().first > 0){
+            if(graphList[startIndex]->edges.front().first > STARTPOSITION){
                 vector<bool> visited(vertexCount, false);
                 depthFirstAssist(startIndex, visited);
             }else{
@@ -285,7 +285,7 @@ void Graph::breadthFirstTraversal(int startVertex){
     if(graphList.front()){
         int startIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
         if(startVertex == graphList[startIndex]->data.id){
-            if(graphList[startIndex]->edges.front().first > 0){
+            if(graphList[startIndex]->edges.front().first > STARTPOSITION){
                 vector<bool> visited(vertexCount, false);
                 std::list<int> queue;
                 breadthFirstAssist(startIndex, visited, queue);
@@ -324,6 +324,6 @@ void Graph::clear(){
         delete graphList[i];
     }
     graphList.assign(1, nullptr);
-    vertexCount = 0;
-    edgeCount = 0;
+    vertexCount = STARTPOSITION;
+    edgeCount = STARTPOSITION;
 }
