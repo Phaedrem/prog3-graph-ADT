@@ -58,6 +58,19 @@ int main(int argc, char** argv){
         cout << "there is no edge between 7 & 1" << endl;
     }
     
+    if(newGraph.edgeExist(7,12)){
+        cout << "An edge between 7 & 12 exists" << endl;
+    }else{
+        cout << "there is no edge between 7 & 12" << endl;
+    }
+
+    if(newGraph.vertexExist(12)){
+        cout << "A vertex with the ID 12 exists" << endl;
+    }else{
+        cout << "there is no vertex with ID 12" << endl;
+    }
+
+
     cout << endl;
 
     newGraph.printGraph();
@@ -101,7 +114,6 @@ int main(int argc, char** argv){
     newGraph.clear();
     cout << endl << "CLEARED" << endl;
     newGraph.printGraph();
-
     newGraph.depthFirstTraversal(7);
     newGraph.breadthFirstTraversal(7);
 
