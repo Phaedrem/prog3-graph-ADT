@@ -16,6 +16,7 @@ int main(int argc, char** argv){
     string strings1[TESTDATA1] = {"TURTLE", "CAT", "DOG", "SNAKE", "BADGER", "LION","TIGER","BEAR", "GRIFFON","RAVEN"};
     int testInt;
     int testInt2;
+    int testInt3; 
     int testWeight; 
     string testString;
     
@@ -116,7 +117,7 @@ int main(int argc, char** argv){
     cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt);
     cout << endl;
-
+    testInt3 = testInt;
     testInt = 0;
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal on a vertex out of range " << endl << endl;
     cout << endl << "Depth First: ";
@@ -151,10 +152,10 @@ int main(int argc, char** argv){
 
     cout << endl;
     cout << "==============================================" << endl;
-    cout << "Testing Exist Methods" << endl;
+    cout << "Testing Exist & Get Methods" << endl;
     cout << "==============================================" << endl;
     
-    cout << "==========edgeExist==========" << endl;
+    cout << "========== edgeExist ==========" << endl;
     for(int i=0; i < TESTDATA2; i++){
         testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
         testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
@@ -172,31 +173,57 @@ int main(int argc, char** argv){
         cout << "No edge exists between " << testInt << " and " << testInt2 << endl;
     }
 
-    /*if(newGraph.vertexExist(12)){
-        cout << "A vertex with the ID 12 exists" << endl;
-    }else{
-        cout << "there is no vertex with ID 12" << endl;
+    cout << endl << "========== vertexExist ==========" << endl;
+    cout << "======== Pre-created IDs ========" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.vertexExist(testInt)){
+            cout << "The vertex " << testInt << " exists" << endl;
+        }else{
+            cout << "Vertex " << testInt << " doesn't exist" << endl;
+        }
+    }
+    cout << endl << "=========== Random IDs ==========" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.vertexExist(testInt)){
+            cout << "The vertex " << testInt << " exists" << endl;
+        }else{
+            cout << "Vertex " << testInt << " doesn't exist" << endl;
+        }
     }
 
-    if(newGraph.getVertex(12, &emptyData)){
-        cout << emptyData.id << ": " << emptyData.information << endl;
-    }else{
-        cout << "VERTEX NOT FOUND" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.vertexExist(testInt)){
+            cout << "The vertex " << testInt << " exists" << endl;
+        }else{
+            cout << "Vertex " << testInt << " doesn't exist" << endl;
+        }
     }
+
+    cout << endl << "========== getVertex ==========" << endl;
+    cout << "======== Pre-created IDs ========" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.getVertex(testInt, &emptyData)){
+            cout << "Vertex " << testInt << " found " << emptyData.id << ": " << emptyData.information << endl;
+        }else{
+            cout << "Vertex " << testInt << " not found" << endl;
+        }
+    }
+    
 
     cout << endl;
-
     newGraph.printGraph();
-
+    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal to show no change, starting at " << testInt3 << endl << endl;
+    cout << endl << "Depth First: ";
+    newGraph.depthFirstTraversal(testInt3);
+    cout << "Breadth First: ";
+    newGraph.breadthFirstTraversal(testInt3);
     cout << endl;
 
-    newGraph.depthFirstTraversal(7);
-
-    newGraph.breadthFirstTraversal(7);
-
-    cout << endl << endl;
-
-    cout << "Removing edge between 2 and 10" << endl;
+    /*cout << "Removing edge between 2 and 10" << endl;
     newGraph.removeEdge(2, 10);
 
     cout << "Removing edge between 4 and 3" << endl;
