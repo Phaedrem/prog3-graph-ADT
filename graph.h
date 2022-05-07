@@ -29,6 +29,7 @@ public:
 
     bool edgeExist(int, int);
     bool vertexExist(int);
+    bool getVertex(int, Data*);
     int getNumVertices();
     int getNumEdges();
     int getEdgeWeight(int, int);

@@ -140,6 +140,19 @@ bool Graph::vertexExist(int firstVertex){
     return found;
 }
 
+bool Graph::getVertex(int vertexID, Data* dataBox){
+    bool found = false;
+    int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, vertexID);
+    dataBox->id = -1;
+    dataBox->information = "";
+    if(vertexID == graphList[vertexIndex]->data.id){
+        dataBox->id = graphList[vertexIndex]->data.id;
+        dataBox->information = graphList[vertexIndex]->data.information;
+        found = true;
+    }
+    return found;
+}
+
 int Graph::getNumVertices(){
     return vertexCount;
 }
