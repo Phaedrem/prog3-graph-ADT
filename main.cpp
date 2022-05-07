@@ -39,7 +39,7 @@ int main(int argc, char** argv){
         }
     }
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
-    cout << "Printing Graph" << endl;
+    cout << endl << "Printing Graph" << endl;
     newGraph.printGraph();
     
     cout << "==============================================" << endl;
@@ -58,7 +58,9 @@ int main(int argc, char** argv){
     newGraph.printGraph();
     testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl;
+    cout << endl << "Depth First: ";
     newGraph.depthFirstTraversal(testInt);
+    cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
@@ -83,10 +85,13 @@ int main(int argc, char** argv){
     newGraph.printGraph();
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
     testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
-    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl;
+    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl << endl;
+    cout << endl << "Depth First: ";
     newGraph.depthFirstTraversal(testInt);
+    cout << "Breadth First: ";
     newGraph.breadthFirstTraversal(testInt);
 
+    cout << endl;
     if(newGraph.getEdgeWeight(7,1) > MIN){
         cout << "the edge weight between vertex 7 & 1 is " << newGraph.getEdgeWeight(7,1) << endl;
     }else{
