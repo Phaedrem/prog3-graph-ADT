@@ -15,6 +15,8 @@ int main(int argc, char** argv){
     int ids1[TESTDATA1] = {(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN}; 
     string strings1[TESTDATA1] = {"TURTLE", "CAT", "DOG", "SNAKE", "BADGER", "LION","TIGER","BEAR", "GRIFFON","RAVEN"};
     int testInt;
+    int testInt2;
+    int testWeight; 
     string testString;
     
     cout << endl << "Creating an empty Graph" << endl;
@@ -36,6 +38,8 @@ int main(int argc, char** argv){
             cout << "Failed to add " << testInt << ": " << testString << endl;
         }
     }
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
+    cout << "Printing Graph" << endl;
     newGraph.printGraph();
     
     cout << "==============================================" << endl;
@@ -50,28 +54,38 @@ int main(int argc, char** argv){
             cout << "Failed to add " << testInt << ": " << testString << endl;
         }
     }
-    cout << endl;
-
-    newGraph.depthFirstTraversal(7);
+    cout << endl << "Printing Graph" << endl;
+    newGraph.printGraph();
+    testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl;
+    newGraph.depthFirstTraversal(testInt);
+    newGraph.breadthFirstTraversal(testInt);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
     cout << endl;
 
-    newGraph.addEdge(7, 1, 10);
-    newGraph.addEdge(7, 2, 88);
-    newGraph.addEdge(1, 6, 88);
-    newGraph.addEdge(6, 8, 88);
-    newGraph.addEdge(6, 9, 88);
-    newGraph.addEdge(10, 2, 88);
-    newGraph.addEdge(2, 5, 88);
-    newGraph.addEdge(3, 5, 88);
-    newGraph.addEdge(3, 4, 88);
-    newGraph.addEdge(4, 10, 88);
+    cout << "==============================================" << endl;
+    cout << "Adding edges" << endl;
+    cout << "==============================================" << endl;
 
+    for(int i = 0; i<TESTDATA2; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testWeight = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.addEdge(testInt, testInt2, testWeight)){
+            cout << "Added an edge between " << testInt << " and " << testInt2 << " with a weight of " << testWeight << endl;
+        }else{
+            cout << "Failed to add an edge between " << testInt << " and " << testInt2 << endl;
+        }
+    }
+    cout << endl << "Printing Graph" << endl;
     newGraph.printGraph();
-
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
+    testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl;
+    newGraph.depthFirstTraversal(testInt);
+    newGraph.breadthFirstTraversal(testInt);
 
     if(newGraph.getEdgeWeight(7,1) > MIN){
         cout << "the edge weight between vertex 7 & 1 is " << newGraph.getEdgeWeight(7,1) << endl;
