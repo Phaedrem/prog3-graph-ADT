@@ -105,17 +105,14 @@ void Graph::breadthFirstAssist(int startingIndex, vector<bool> &visited, std::li
     visited[startingIndex] = true;
     cout << graphList[startingIndex]->data.id << ": " << graphList[startingIndex]->data.information << " ";
     for(int i=0; i < graphList[startingIndex]->edges.size(); i++){
-        //cout << endl <<" checking " << graphList[startingIndex]->edges[i].first << endl;
         if(!visited[vertexBinarySearch(STARTPOSITION, vertexCount-1,graphList[startingIndex]->edges[i].first)]){
             queue.push_back(graphList[startingIndex]->edges[i].first);
-            //cout << " added " << graphList[startingIndex]->edges[i].first << endl; 
         }
     }
     while(!queue.empty()){
         int nextIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, queue.front());
         queue.pop_front();
         if(!visited[nextIndex]){
-            //cout << endl << " going to " << graphList[nextIndex]->data.id << endl;
             breadthFirstAssist(nextIndex, visited, queue);
         }
     }
