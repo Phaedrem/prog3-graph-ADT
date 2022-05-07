@@ -19,6 +19,7 @@ using std::vector;
 using std::make_pair;
 
 #define STARTPOSITION 0
+#define PRIMER -1
 
 class Graph{
 
