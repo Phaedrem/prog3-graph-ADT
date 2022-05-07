@@ -8,26 +8,46 @@ Purpose: Creating a graph ADT
 
 int main(int argc, char** argv){
     srand(time(NULL));
-
-    string stringName = "TURTLE";
-    Graph newGraph;
     Data emptyData;
 
-    cout << endl;
+
+
+    int ids1[TESTDATA1] = {(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN,(std::rand() % (MAX - MIN + 1)) +MIN}; 
+    string strings1[TESTDATA1] = {"TURTLE", "CAT", "DOG", "SNAKE", "BADGER", "LION","TIGER","BEAR", "GRIFFON","RAVEN"};
+    int testInt;
+    string testString;
+    
+    cout << endl << "Creating an empty Graph" << endl;
+    Graph newGraph;
+    cout << "Created, attempting to print using printGraph, depthFirstTraversal, breadthFirstTraversal" << endl << endl;
     newGraph.printGraph();
     newGraph.depthFirstTraversal(9);
-    for(int i = 0; i<=5; i++){
-        if(newGraph.addVertex(i*2, &stringName)){
-            cout << "added " << i*2 << ": " << stringName << endl;
+    newGraph.depthFirstTraversal(9);
+
+    cout << "==============================================" << endl;
+    cout << "Adding vertices" << endl;
+    cout << "==============================================" << endl;
+    for(int i = 0; i<TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testString = strings1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.addVertex(testInt, &testString)){
+            cout << "added " << testInt << ": " << testString << endl;
+        }else{
+            cout << "Failed to add " << testInt << ": " << testString << endl;
         }
     }
     newGraph.printGraph();
-    cout << endl;
-
-    stringName = "HARE";
-    for(int i = 0; i<=10; i++){
-        if(newGraph.addVertex(i, &stringName)){
-            cout << "added " << i << ": " << stringName << endl;
+    
+    cout << "==============================================" << endl;
+    cout << "Adding more vertices" << endl;
+    cout << "==============================================" << endl;
+    for(int i = 0; i<TESTDATA2; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testString = strings1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.addVertex(testInt, &testString)){
+            cout << "added " << testInt << ": " << testString << endl;
+        }else{
+            cout << "Failed to add " << testInt << ": " << testString << endl;
         }
     }
     cout << endl;
@@ -53,7 +73,7 @@ int main(int argc, char** argv){
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
-    if(newGraph.getEdgeWeight(7,1)){
+    if(newGraph.getEdgeWeight(7,1) > MIN){
         cout << "the edge weight between vertex 7 & 1 is " << newGraph.getEdgeWeight(7,1) << endl;
     }else{
         cout << "there is no edge between 7 & 1" << endl;
@@ -124,12 +144,6 @@ int main(int argc, char** argv){
     newGraph.breadthFirstTraversal(7);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
-
-    for(int i = 0; i<=5; i++){
-        if(newGraph.addVertex(i*2, &stringName)){
-            cout << "added " << i*2 << ": " << stringName << endl;
-        }
-    }
 
     newGraph.printGraph();
 
