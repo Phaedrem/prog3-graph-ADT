@@ -357,20 +357,73 @@ int main(int argc, char** argv){
     newGraph.breadthFirstTraversal(testInt3);
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
     
-    /*newGraph.depthFirstTraversal(7);
-    newGraph.breadthFirstTraversal(7);
-    cout << endl << "CLEARING" << endl;
+    cout << "========== clear ==========" << endl;
     newGraph.clear();
-    cout << endl << "CLEARED" << endl;
+    cout << endl << "Cleared" << endl;
     newGraph.printGraph();
-    newGraph.depthFirstTraversal(7);
-    newGraph.breadthFirstTraversal(7);
-
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
+    cout << "==============================================" << endl;
+    cout << "Testing remove methods on empty graph" << endl;
+    cout << "==============================================" << endl;
+    cout << "========== removeEdge ==========" << endl;
+    cout << "Attemping to remove a guaranteed edge between " << testInt3 << " and " << testInt4 << endl;
+    if(newGraph.removeEdge(testInt3, testInt4)){
+        cout << "Edge Removed" << endl;
+    }else{
+        cout << "Failed to remove" << endl;
+    }
+    cout << endl << "Attemping to remove random edges" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        cout << "Attempting to remove edge between " << testInt << " and " << testInt2 << endl;
+        if(newGraph.removeEdge(testInt, testInt2)){
+            cout << "Edge Removed" << endl;
+        }else{
+            cout << "Failed to remove" << endl;
+        }
+    }
+    cout << endl;
     newGraph.printGraph();
+    cout << endl;
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
-    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;*/
 
+    cout << "========== removeVertex ==========" << endl;
+     cout << "Attemping to remove a guaranteed vertex " << testInt3 << endl;
+    if(newGraph.removeVertex(testInt3)){
+        cout << "Vertex Removed" << endl;
+    }else{
+        cout << "Failed to remove" << endl;
+    }
+    cout << endl << "Attemping to remove pre-made vertexs" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        cout << "Attempting to remove vertex " << testInt << endl;
+        if(newGraph.removeVertex(testInt)){
+            cout << "Vertex Removed" << endl;
+        }else{
+            cout << "Failed to remove" << endl;
+        }
+    }
+    cout << endl;
+    newGraph.printGraph();
+    cout << endl;
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
+    
+    cout << "========== clear ==========" << endl;
+    newGraph.clear();
+    cout << endl << "Cleared" << endl;
+    newGraph.printGraph();
+    newGraph.depthFirstTraversal(testInt3);
+    newGraph.breadthFirstTraversal(testInt3);
+    cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
     return 0;
 }
