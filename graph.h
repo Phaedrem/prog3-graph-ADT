@@ -10,6 +10,7 @@ Purpose: Creating a graph ADT
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <list>
 #include "data.h"
 
 using std::cout;
@@ -36,6 +37,7 @@ public:
     void depthFirstTraversal(int);
     void breadthFirstTraversal(int);
     void clear();
+    void printGraph();
 
 private:
 
@@ -47,6 +49,7 @@ private:
     void createVertex(Vertex**, int, string*);
     bool createEdge(int, int, int);
     void depthFirstAssist(int, vector<bool>&);
+    void breadthFirstAssist(int, vector<bool>&, std::list<int>&);
 
 };
 
