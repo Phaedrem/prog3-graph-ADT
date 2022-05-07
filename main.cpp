@@ -13,14 +13,14 @@ int main(int argc, char** argv){
     Graph newGraph;
 
     cout << endl;
-    newGraph.breadthFirstTraversal(9);
+    newGraph.printGraph();
     newGraph.depthFirstTraversal(9);
     for(int i = 0; i<=5; i++){
         if(newGraph.addVertex(i*2, &stringName)){
             cout << "added " << i*2 << ": " << stringName << endl;
         }
     }
-    newGraph.breadthFirstTraversal(9);
+    newGraph.printGraph();
     cout << endl;
 
     stringName = "HARE";
@@ -48,7 +48,7 @@ int main(int argc, char** argv){
     newGraph.addEdge(3, 4, 88);
     newGraph.addEdge(4, 10, 88);
 
-    newGraph.breadthFirstTraversal(7);
+    newGraph.printGraph();
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
 
@@ -60,9 +60,13 @@ int main(int argc, char** argv){
     
     cout << endl;
 
-    newGraph.breadthFirstTraversal(7);
+    newGraph.printGraph();
+
+    cout << endl;
 
     newGraph.depthFirstTraversal(7);
+
+    newGraph.breadthFirstTraversal(7);
 
     cout << endl << endl;
 
@@ -73,11 +77,13 @@ int main(int argc, char** argv){
     newGraph.removeEdge(4, 3);
 
 
-    newGraph.breadthFirstTraversal(9);
+    newGraph.printGraph();
 
     cout << endl;
 
     newGraph.depthFirstTraversal(9);
+
+    newGraph.breadthFirstTraversal(9);
 
     cout << endl << endl <<"Removing vertex 3" << endl << endl;
 
@@ -85,17 +91,19 @@ int main(int argc, char** argv){
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
-    newGraph.breadthFirstTraversal(7);
+    newGraph.printGraph();
 
     cout << endl << endl;
 
     newGraph.depthFirstTraversal(7);
+    newGraph.breadthFirstTraversal(7);
     cout << endl << "CLEARING" << endl;
     newGraph.clear();
     cout << endl << "CLEARED" << endl;
-    newGraph.breadthFirstTraversal(7);
+    newGraph.printGraph();
 
     newGraph.depthFirstTraversal(7);
+    newGraph.breadthFirstTraversal(7);
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
@@ -105,7 +113,7 @@ int main(int argc, char** argv){
         }
     }
 
-    newGraph.breadthFirstTraversal(7);
+    newGraph.printGraph();
 
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl;
 
