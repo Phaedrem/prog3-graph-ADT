@@ -89,7 +89,18 @@ int main(int argc, char** argv){
         }
     }
     
-
+    cout << endl << "========== getEdgeWeight ==========" << endl;
+    for(int i=0; i<TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testWeight = newGraph.getEdgeWeight(testInt,testInt2);
+        if(testWeight > MIN){
+            cout << "The edge weight between vertex " << testInt << " and " << testInt2 << " is " << testWeight << endl;
+        }else{
+            cout << "There is no edge between " << testInt << " and " << testInt2 << endl;
+        }
+    }
+    
     cout << endl;
     newGraph.printGraph();
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal to show no change, starting at " << testInt << endl << endl;
