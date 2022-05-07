@@ -28,6 +28,78 @@ int main(int argc, char** argv){
     newGraph.depthFirstTraversal(9);
     cout << endl;
     cout << "==============================================" << endl;
+    cout << "Exist / Get Methods on empty graph" << endl;
+    cout << "==============================================" << endl;
+    cout << "========== edgeExist ==========" << endl;
+    for(int i=0; i < TESTDATA2; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.edgeExist(testInt,testInt2)){
+            cout << "An edge between " << testInt << " and " << testInt2 << " exists" << endl;
+        }else{
+            cout << "No edge exists between " << testInt << " and " << testInt2 << endl;
+        }
+    }
+    cout << endl << "Testing with ID out of range" << endl;
+    testInt = 0;
+    if(newGraph.edgeExist(testInt,testInt2)){
+        cout << "An edge between " << testInt << " and " << testInt2 << " exists" << endl;
+    }else{
+        cout << "No edge exists between " << testInt << " and " << testInt2 << endl;
+    }
+
+    cout << endl << "========== vertexExist ==========" << endl;
+    cout << "======== Pre-created IDs ========" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.vertexExist(testInt)){
+            cout << "The vertex " << testInt << " exists" << endl;
+        }else{
+            cout << "Vertex " << testInt << " doesn't exist" << endl;
+        }
+    }
+    cout << endl << "=========== Random IDs ==========" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.vertexExist(testInt)){
+            cout << "The vertex " << testInt << " exists" << endl;
+        }else{
+            cout << "Vertex " << testInt << " doesn't exist" << endl;
+        }
+    }
+
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.vertexExist(testInt)){
+            cout << "The vertex " << testInt << " exists" << endl;
+        }else{
+            cout << "Vertex " << testInt << " doesn't exist" << endl;
+        }
+    }
+
+    cout << endl << "========== getVertex ==========" << endl;
+    cout << "======== Pre-created IDs ========" << endl;
+    for(int i=0; i < TESTDATA1; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.getVertex(testInt, &emptyData)){
+            cout << "Vertex " << testInt << " found " << emptyData.id << ": " << emptyData.information << endl;
+        }else{
+            cout << "Vertex " << testInt << " not found" << endl;
+        }
+    }
+    
+
+    cout << endl;
+    newGraph.printGraph();
+    cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal to show no change, starting at " << testInt << endl << endl;
+    cout << endl << "Depth First: ";
+    newGraph.depthFirstTraversal(testInt);
+    cout << "Breadth First: ";
+    newGraph.breadthFirstTraversal(testInt);
+    cout << endl;
+
+
+    cout << "==============================================" << endl;
     cout << "Adding vertices" << endl;
     cout << "==============================================" << endl;
     for(int i = 0; i<TESTDATA1; i++){
