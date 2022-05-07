@@ -339,6 +339,14 @@ int main(int argc, char** argv){
     }else{
         cout << "Failed to remove" << endl;
     }
+
+    cout << "Attemping to remove a guaranteed edge from out of range vertices " << MIN << " and " << testInt4 << endl;
+    if(newGraph.removeEdge(MIN, testInt4)){
+        cout << "Edge Removed" << endl;
+    }else{
+        cout << "Failed to remove" << endl;
+    }
+
     cout << endl << "Attemping to remove random edges" << endl;
     for(int i=0; i < TESTDATA1; i++){
         testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
@@ -359,12 +367,20 @@ int main(int argc, char** argv){
 
 
     cout << "========== removeVertex ==========" << endl;
-     cout << "Attemping to remove a guaranteed vertex " << testInt3 << endl;
+    cout << "Attemping to remove a guaranteed vertex " << testInt3 << endl;
     if(newGraph.removeVertex(testInt3)){
         cout << "Vertex Removed" << endl;
     }else{
         cout << "Failed to remove" << endl;
     }
+
+    cout << "Attemping to remove an our of range vertex " << MIN << endl;
+    if(newGraph.removeVertex(MIN)){
+        cout << "Vertex Removed" << endl;
+    }else{
+        cout << "Failed to remove" << endl;
+    }
+
     cout << endl << "Attemping to remove pre-made vertexs" << endl;
     for(int i=0; i < TESTDATA1; i++){
         testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
