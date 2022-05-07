@@ -101,6 +101,14 @@ int main(int argc, char** argv){
     cout << endl << "Printing Graph" << endl;
     newGraph.printGraph();
     cout << endl << "Current vertex count is " << newGraph.getNumVertices() << " and current edge count is " << newGraph.getNumEdges() << endl << endl;
+
+    cout << "Attempting to add duplicate edge between " << testInt2 << " and " << testInt << endl;
+    if(newGraph.addEdge(testInt2, testInt, testWeight)){
+        cout << "Added an edge between " << testInt2 << " and " << testInt << " with a weight of " << testWeight << endl;
+    }else{
+        cout << "Failed to add an edge between " << testInt2 << " and " << testInt << endl;
+    }
+
     testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt << endl << endl;
     cout << endl << "Depth First: ";
@@ -141,14 +149,30 @@ int main(int argc, char** argv){
             cout << "There is no edge between " << testInt << " and " << testInt2 << endl;
         }
 
-
-    /*if(newGraph.edgeExist(7,12)){
-        cout << "An edge between 7 & 12 exists" << endl;
+    cout << endl;
+    cout << "==============================================" << endl;
+    cout << "Testing Exist Methods" << endl;
+    cout << "==============================================" << endl;
+    
+    cout << "==========edgeExist==========" << endl;
+    for(int i=0; i < TESTDATA2; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        if(newGraph.edgeExist(testInt,testInt2)){
+            cout << "An edge between " << testInt << " and " << testInt2 << " exists" << endl;
+        }else{
+            cout << "No edge exists between " << testInt << " and " << testInt2 << endl;
+        }
+    }
+    cout << endl << "Testing with ID out of range" << endl;
+    testInt = 0;
+    if(newGraph.edgeExist(testInt,testInt2)){
+        cout << "An edge between " << testInt << " and " << testInt2 << " exists" << endl;
     }else{
-        cout << "there is no edge between 7 & 12" << endl;
+        cout << "No edge exists between " << testInt << " and " << testInt2 << endl;
     }
 
-    if(newGraph.vertexExist(12)){
+    /*if(newGraph.vertexExist(12)){
         cout << "A vertex with the ID 12 exists" << endl;
     }else{
         cout << "there is no vertex with ID 12" << endl;
