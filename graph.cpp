@@ -124,35 +124,43 @@ PUBLIC
 
 bool Graph::edgeExist(int firstVertex, int secondVertex){
     bool found = false;
-    int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, firstVertex);
-    if(firstVertex == graphList[vertexIndex]->data.id){
-        int edgeIndex = edgeBinarySearch(vertexIndex, STARTPOSITION, graphList[vertexIndex]->edges.size()-1, secondVertex);
-        if(secondVertex == graphList[vertexIndex]->edges[edgeIndex].first){
-            found = true; 
+    if(graphList.front()){
+        int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, firstVertex);
+        if(firstVertex == graphList[vertexIndex]->data.id){
+            int edgeIndex = edgeBinarySearch(vertexIndex, STARTPOSITION, graphList[vertexIndex]->edges.size()-1, secondVertex);
+            if(secondVertex == graphList[vertexIndex]->edges[edgeIndex].first){
+                found = true; 
+            }
         }
-    }
+    }   
     return found;
 }
 
 bool Graph::vertexExist(int firstVertex){
     bool found = false;
-    int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, firstVertex);
-    if(firstVertex == graphList[vertexIndex]->data.id){
-        found = true; 
+    if(graphList.front()){
+        int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, firstVertex);
+        if(firstVertex == graphList[vertexIndex]->data.id){
+            found = true; 
+        }
     }
+    
     return found;
 }
 
 bool Graph::getVertex(int vertexID, Data* dataBox){
     bool found = false;
-    int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, vertexID);
     dataBox->id = PRIMER;
     dataBox->information = "";
-    if(vertexID == graphList[vertexIndex]->data.id){
-        dataBox->id = graphList[vertexIndex]->data.id;
-        dataBox->information = graphList[vertexIndex]->data.information;
-        found = true;
+    if(graphList.front()){
+        int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, vertexID);
+        if(vertexID == graphList[vertexIndex]->data.id){
+            dataBox->id = graphList[vertexIndex]->data.id;
+            dataBox->information = graphList[vertexIndex]->data.information;
+            found = true;
+        }
     }
+    
     return found;
 }
 
