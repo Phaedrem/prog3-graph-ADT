@@ -233,8 +233,9 @@ bool Graph::removeVertex(int id){
     bool removed = false;
     int idIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
     if(id == graphList[idIndex]->data.id){
-        for(int i=0; i< graphList[idIndex]->edges.size(); i++){
-            removeEdge(id, graphList[idIndex]->edges[i].first);
+        while(graphList[idIndex]->edges.front().first > 0){
+            cout << "removing edge between " << id << " and " << graphList[idIndex]->edges.front().first << endl;
+            removeEdge(id, graphList[idIndex]->edges.front().first);
         }
         graphList.erase(graphList.begin()+idIndex);
         graphList.shrink_to_fit();
