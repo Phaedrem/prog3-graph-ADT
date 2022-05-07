@@ -219,14 +219,16 @@ bool Graph::addVertex(int id, string* info){
 
 bool Graph::addEdge(int startVertex, int endVertex, int weight){
     bool connected = false;
-    int firstIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
-    int secondIndex = vertexBinarySearch(STARTPOSITION,vertexCount-1, endVertex);
-    if(startVertex != endVertex && startVertex == graphList[firstIndex]->data.id && endVertex == graphList[secondIndex]->data.id){
-        if(createEdge(endVertex, weight, firstIndex)){
-            createEdge(startVertex, weight, secondIndex);
-            edgeCount++;
-            connected = true;
-        }    
+    if(graphList.front()){
+        int firstIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, startVertex);
+        int secondIndex = vertexBinarySearch(STARTPOSITION,vertexCount-1, endVertex);
+        if(startVertex != endVertex && startVertex == graphList[firstIndex]->data.id && endVertex == graphList[secondIndex]->data.id){
+            if(createEdge(endVertex, weight, firstIndex)){
+                createEdge(startVertex, weight, secondIndex);
+                edgeCount++;
+                connected = true;
+            }    
+        }
     }
     return connected;
 }
