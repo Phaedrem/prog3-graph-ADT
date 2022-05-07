@@ -101,6 +101,20 @@ int main(int argc, char** argv){
         }
     }
     
+    cout << endl << "========== addEdge ==========" << endl;
+    for(int i = 0; i<TESTDATA2; i++){
+        testInt = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testInt2 = ids1[(std::rand() % ((TESTDATA1-1) - MIN + 1)) +MIN];
+        testWeight = (std::rand() % (MAX - MIN + 1)) +MIN;
+        if(newGraph.addEdge(testInt, testInt2, testWeight)){
+            cout << "Added an edge between " << testInt << " and " << testInt2 << " with a weight of " << testWeight << endl;
+            testInt3 = testInt;
+            testInt4 = testInt2;
+        }else{
+            cout << "Failed to add an edge between " << testInt << " and " << testInt2 << endl;
+        }
+    }
+
     cout << endl;
     newGraph.printGraph();
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal to show no change, starting at " << testInt << endl << endl;
