@@ -27,6 +27,8 @@ public:
     Graph();
     ~Graph();
 
+    bool edgeExist(int, int);
+    bool vertexExist(int);
     int getNumVertices();
     int getNumEdges();
     int getEdgeWeight(int, int);
@@ -36,8 +38,8 @@ public:
     bool removeEdge(int, int);
     void depthFirstTraversal(int);
     void breadthFirstTraversal(int);
-    void clear();
     void printGraph();
+    void clear();
 
 private:
 
