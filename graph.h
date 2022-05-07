@@ -41,7 +41,8 @@ public:
     void depthFirstTraversal(int);
     void breadthFirstTraversal(int);
     void printGraph();
-    void clear();
+    void clearGraph();
+    void clearEdges();
 
 private:
 

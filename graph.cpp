@@ -18,7 +18,7 @@ Graph::Graph(){
 }
 
 Graph::~Graph(){
-    clear();
+    clearGraph();
 }
 
 
@@ -333,11 +333,21 @@ void Graph::printGraph(){
     }
 }
 
-void Graph::clear(){
+void Graph::clearGraph(){
     for(int i=0; i<vertexCount; i++){
         delete graphList[i];
     }
     graphList.assign(1, nullptr);
     vertexCount = STARTPOSITION;
     edgeCount = STARTPOSITION;
+}
+
+void Graph::clearEdges(){
+    if(graphList.front()){
+        for(int i=0; i<vertexCount; i++){
+            graphList[i]->edges.clear();
+            graphList[i]->edges.push_back(make_pair(PRIMER, PRIMER));
+        }
+        edgeCount = 0;
+    }
 }
