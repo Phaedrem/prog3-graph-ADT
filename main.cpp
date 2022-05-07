@@ -210,6 +210,13 @@ int main(int argc, char** argv){
         cout << "Failed to add an edge between " << testInt4 << " and " << testInt3 << endl;
     }
 
+    cout << "Attempting to add with out of range ID " << MIN << " and " << testInt3 << endl;
+    if(newGraph.addEdge(MIN, testInt3, testWeight)){
+        cout << "Added an edge between " << MIN << " and " << testInt3 << " with a weight of " << testWeight << endl;
+    }else{
+        cout << "Failed to add an edge between " << MIN << " and " << testInt3 << endl;
+    }
+
     cout << endl << "Trying depthFirstTraversal and breadthFirstTraversal from Vertex " << testInt3 << endl << endl;
     cout << endl << "Depth First: ";
     newGraph.depthFirstTraversal(testInt3);
@@ -290,14 +297,11 @@ int main(int argc, char** argv){
             cout << "Vertex " << testInt << " doesn't exist" << endl;
         }
     }
-
-    for(int i=0; i < TESTDATA1; i++){
-        testInt = (std::rand() % (MAX - MIN + 1)) +MIN;
-        if(newGraph.vertexExist(testInt)){
-            cout << "The vertex " << testInt << " exists" << endl;
-        }else{
-            cout << "Vertex " << testInt << " doesn't exist" << endl;
-        }
+    cout << endl << "=========== Out of range ID ==========" << endl;
+    if(newGraph.vertexExist(MIN)){
+        cout << "The vertex " << MIN << " exists" << endl;
+    }else{
+        cout << "Vertex " << MIN << " doesn't exist" << endl;
     }
 
     cout << endl << "========== getVertex ==========" << endl;
@@ -319,6 +323,12 @@ int main(int argc, char** argv){
         }else{
             cout << "Vertex " << testInt << " not found" << endl;
         }
+    }
+    cout << endl << "=========== Out of range ID ==========" << endl;
+    if(newGraph.getVertex(MIN, &emptyData)){
+        cout << "Vertex " << MIN << " found " << emptyData.id << ": " << emptyData.information << endl;
+    }else{
+        cout << "Vertex " << MIN << " not found" << endl;
     }
 
     cout << endl << "Trying print and traversal methods to show no change, starting at " << testInt3 << endl << endl;
