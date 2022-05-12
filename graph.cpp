@@ -201,13 +201,13 @@ bool Graph::addVertex(int id, string* info){
             vertexCount++;
             added = true;
         }else{
-            int placeHolder = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
-            if(id != graphList[placeHolder]->data.id){
+            int vertexIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
+            if(id != graphList[vertexIndex]->data.id){
                 createVertex(&testVertex, id, info);
-                if(id < graphList[placeHolder]->data.id){
-                    graphList.insert(graphList.begin()+placeHolder, testVertex);
+                if(id < graphList[vertexIndex]->data.id){
+                    graphList.insert(graphList.begin()+vertexIndex, testVertex);
                 }else{
-                    graphList.insert(graphList.begin()+placeHolder+1, testVertex);
+                    graphList.insert(graphList.begin()+vertexIndex+1, testVertex);
                 }
                 vertexCount++;
                 added = true;
@@ -239,7 +239,6 @@ bool Graph::removeVertex(int id){
         int idIndex = vertexBinarySearch(STARTPOSITION, vertexCount-1, id);
         if(id == graphList[idIndex]->data.id){
             while(graphList[idIndex]->edges.front().first > 0){
-                cout << "removing edge between " << id << " and " << graphList[idIndex]->edges.front().first << endl;
                 removeEdge(id, graphList[idIndex]->edges.front().first);
             }
             graphList.erase(graphList.begin()+idIndex);
